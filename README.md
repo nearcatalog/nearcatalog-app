@@ -101,4 +101,4 @@ You can see the public APIs of NEARCatalog Indexer here: https://docs.nearcatalo
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you're interested in contributing to this project, please read the [contribution guide](./CONTRIBUTING).
+If you're interested in contributing to this project, please read the [contribution guide](./CONTRIBUTING.md).
