@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #000;
+  --text-color: #fff;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: var(--background);
+  color: var(--text-color);
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.bg-hover-gradient::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 236, 151, 0.4),
+    rgba(23, 217, 212, 0.4),
+    rgba(151, 71, 255, 0.4)
+  );
+  z-index: -1;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  border-radius: 9999px;
+}
+
+.bg-hover-gradient:hover::before {
+  opacity: 1;
+}
+
+.bg-click-gradient::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 236, 151, 0.7),
+    rgba(23, 217, 212, 0.7),
+    rgba(151, 71, 255, 0.7)
+  );
+  z-index: -1;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  border-radius: 9999px;
+}
+
+.bg-click-gradient:active::after {
+  opacity: 1;
+}
+
+@keyframes subtle-bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.3125rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-subtle-bounce {
+  animation: subtle-bounce 3.5s ease-in-out infinite;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 7.5rem;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+
+  @media (max-width: 48rem) {
+    width: 2.5rem;
+  }
+}
+
+.scroll-shadow.left {
+  left: 0;
+  background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.8));
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.scroll-shadow.right {
+  right: 0;
+  background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.8));
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.no-select {
+  user-select: none;
+}
