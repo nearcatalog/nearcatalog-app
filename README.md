@@ -43,6 +43,7 @@ here is sample env file:
 ```
 NEAR_CATALOG_API=https://api.nearcatalog.xyz
 NEXT_PUBLIC_NEAR_CATALOG_API=https://api.nearcatalog.xyz
+BASE_URL=http://nearcatalog.xyz
 ```
 
 ### Running the app

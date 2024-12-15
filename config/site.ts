@@ -1,5 +1,5 @@
 const site = {
-  url: "https://localhost:3000",
+  url: process.env.BASE_URL,
 };
 
 export default site;

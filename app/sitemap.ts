@@ -1,11 +1,10 @@
-import site from "@/config/site";
 import { MetadataRoute } from "next";
 import { ProjectRecord } from "@/lib/types";
 import { fetchAllProjects } from "@/lib/near-catalog";
 
 export const dynamic = "force-dynamic";
 
-const BASE_URL = site.url;
+const BASE_URL = process.env.BASE_URL;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await fetchAllProjects();
