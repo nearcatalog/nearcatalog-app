@@ -18,7 +18,7 @@ export default async function TrendingProjects() {
                     title={
                         <div className="flex items-center justify-center gap-4 mb-4">
                             <Fire />
-                            <h3>Trending</h3>
+                            <h1>Trending</h1>
                             <Fire />
                         </div>
                     }

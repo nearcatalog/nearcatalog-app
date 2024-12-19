@@ -15,7 +15,7 @@ const BASE_URL = site.url;
 
 export const metadata: Metadata = {
   title: {
-    default: "NEAR Catalog",
+    default: "NEAR Catalog - Explore NEAR Projects",
     template: "%s - NEAR Catalog",
   },
   description:
@@ -23,14 +23,13 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   keywords: [
     "NEAR",
+    "NEAR Protocol",
     "Catalog",
     "NEAR Catalog",
+    "NEAR Projects",
     "NEAR Ecosystem",
-    "NEAR Ecosystem Support",
     "NEAR Community",
-    "NEAR Community Support",
-    "NEAR DAO",
-  ],
+    ],
   authors: [
     {
       name: "NEAR Catalog",
