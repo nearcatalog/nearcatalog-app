@@ -20,9 +20,9 @@ export default function ProjectHeader({
         priority
       />
       <div className="flex flex-col gap-2">
-        <h2 className="text-2xl font-medium lg:text-[2rem] lg:font-bold">
+        <h1 className="text-2xl font-medium lg:text-[2rem] lg:font-bold">
           {profile?.name}
-        </h2>
+        </h1>
         <p className="text-base font-medium">{profile?.tagline}</p>
         <Tags tags={profile.tags} />
       </div>
