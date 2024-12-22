@@ -2,6 +2,7 @@
 
 import GradientButton from "@/components/ui/gradient-button";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 type Route = {
@@ -17,6 +18,14 @@ const routes: Route[] = [
   {
     name: "🔥 Trending",
     href: "/trending",
+  },
+  {
+    name: '<image src="https://indexer.nearcatalog.xyz/wp-content/uploads/2024/12/near-icon.webp" alt="NEAR Chain Abstraction" class="w-6 h-6 inline-block"> Chain Abstraction ',
+    href: "/category/chain-abstraction",
+  },
+  {
+    name: '<img src="https://indexer.nearcatalog.xyz/wp-content/uploads/2024/12/aurora-icon.webp" alt="Aurora Virtual Chain" class="inline-block w-6 h-6 mr-2" /> Aurora Virtual Chain',
+    href: "/category/aurora-virtual-chain",
   },
   // {
   //   name: "Discover",
@@ -57,9 +66,8 @@ export default function Navbar() {
                 key={index}
                 href={route.href}
                 className="url rounded-full px-2 py-1 text-center font-medium text-white transition-colors duration-300 ease-in-out hover:bg-[#1A1A17] focus:bg-[#282828] lg:px-4 lg:py-2"
-              >
-                {route.name}
-              </Link>
+                dangerouslySetInnerHTML={{ __html: route.name }}
+              />
             ))}
           </div>
 
@@ -116,9 +124,8 @@ export default function Navbar() {
               onClick={() => {
               }}
               className="url rounded-full px-2 py-1 text-center font-medium text-white transition-colors duration-300 ease-in-out hover:bg-[#1A1A17] focus:bg-[#282828] lg:px-4 lg:py-2"
-            >
-              {route.name}
-            </Link>
+              dangerouslySetInnerHTML={{ __html: route.name }}
+            />
           ))}
 
           <GradientButton
