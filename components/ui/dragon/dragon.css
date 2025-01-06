@@ -6,7 +6,6 @@
   
   .ag-dragon-fly-block {
     height: 100%;
-    background: url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/dragon-fly/images/bg.jpg) no-repeat scroll 50% 0;
     background-size: cover;
   }
   
@@ -28,7 +27,7 @@
   }
   .ag-dragon:before {
     content: "";
-    background: url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/animation-sprite/images/dragon.png) no-repeat scroll 0 0;
+    background: url(/assets/images/dragon.png) no-repeat scroll 0 0;
     background-size: 100% auto;
   
     position: absolute;
