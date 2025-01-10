@@ -30,7 +30,7 @@ export async function generateMetadata({
   return {
     title: `${categoryData.cat_title} Projects`,
     description:
-      categoryData.cat_description ||
+      categoryData.cat_desc ||
       `Discover ${categoryData.cat_title} projects`,
   };
 }
@@ -84,7 +84,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <div className="projects relative z-[1] flex flex-col gap-4">
         <SectionHeading
           title={categoryData.cat_title}
-          description={categoryData.cat_description}
+          description={categoryData.cat_desc}
         />
         <CategoryProjectsList projects={categoryData.data} tags={allCategories} />
       </div>
