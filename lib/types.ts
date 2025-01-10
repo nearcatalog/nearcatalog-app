@@ -31,7 +31,7 @@ export type ProjectRecord = {
 
 export type ProjectCategory = {
   cat_title: string;
-  cat_description: string;
+  cat_desc: string;
   cat_slug: string;
   data: Record<ProjectId, ProjectRecord>;
 };
