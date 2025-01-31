@@ -34,7 +34,7 @@ export default function Banner() {
                   [&times;]
                 </button>
                 <a
-                  href="https://1t-agents.devpost.com/"
+                  href="https://onetrillionagents.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   title="One Trillion Agents Hackathon - Bring order to chaos. Buidl the resistance"
