@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import "./banner.css" 
 
 import { useState } from "react";
@@ -39,7 +39,7 @@ export default function Banner() {
                   rel="noopener noreferrer"
                   title="One Trillion Agents Hackathon - Bring order to chaos. Buidl the resistance"
                 >
-                  <img
+                  <Image
                     src="https://indexer.nearcatalog.xyz/wp-content/uploads/2025/01/nearaihackathon.jpeg"
                     alt="One Trillion Agents Hackathon - Bring order to chaos. Buidl the resistance"
                   />
