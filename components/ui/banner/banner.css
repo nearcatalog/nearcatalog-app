@@ -1,0 +1,23 @@
+#near-event{
+    z-index:9999;
+    position:fixed;
+    bottom:0;
+}
+
+.near-event-banner img{ width: 100% }
+.near-event-banner a{
+    display: block;
+    outline: none;
+    transition: box-shadow .3s;
+    position: relative; 
+}
+
+@media screen and (min-width: 1800px )  {
+ .near-event-banner {
+    max-width: 1200px;
+    transform: translateX(-50%);
+    left: 50%;
+    position: fixed;
+    bottom: 0;
+    }
+}
