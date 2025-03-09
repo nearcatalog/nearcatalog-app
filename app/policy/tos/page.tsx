@@ -183,16 +183,6 @@ We take claims of copyright infringement seriously and we will endeavor respond 
 * A statement that the information in the written notice is accurate.  
 * A statement, under penalty of perjury, that you are authorized to act on behalf of the copyright owner.
 
-*Our designated Copyright Agent to receive DMCA Notices is:*
-
-Cameron Dennis  
-Banyan Collective Inc.   
-2261 Market Street STE 100089  
-San Francisco, CA. 94114  
-United States
-
-Cameron@banyan.gg
-
 If you fail to comply with all of the requirements of Section 512(c)(3) of the DMCA, your DMCA Notice may not be effective.
 
 Please be aware that if you knowingly materially misrepresent that material or activity on the Services is infringing your copyright, you may be held liable for damages (including costs and attorneys’ fees) under Section 512(f) of the DMCA.  
@@ -261,13 +251,13 @@ If any provision of these Terms of Use is held by a court or other tribunal of c
 
 ## Entire Agreement
 
-The Terms of Use and the Privacy Policy constitute the sole and entire agreement between you and Banyan Collective Inc. regarding the Services and supersede all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral, regarding the Websites and the Tools
+The Terms of Use and the Privacy Policy constitute the sole and entire agreement between you and NEARCatalog. regarding the Services and supersede all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral, regarding the Websites and the Tools
 
 ## Your Comments and Concerns
 
 All notices of copyright infringement claims should be sent to the copyright agent designated in the Copyright Infringement section of these Terms of Use in the manner and by the means set out therein.
 
-All other feedback, comments, questions, and other communications relating to these Terms of Use should be directed to: cameron@banyan.gg  
+All other feedback, comments, questions, and other communications relating to these Terms of Use should be directed to:   
 
 `;
 
