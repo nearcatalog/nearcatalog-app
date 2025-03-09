@@ -7,7 +7,7 @@ const termOfService = `
 
 ## Acceptance of the Terms of Use 
 
-These terms of use are entered into by and between you and Banyan Collective Inc. (“Company”, “we” or “us”). The following terms and conditions, together with any documents they expressly incorporate by reference (collectively, these “Terms of Use”), govern your access to and use of https://near.social/nearcatalog.near/widget/NearCatalog.App, including any content, functionality, and services available or accessible through these websites (collectively, the “Websites” and individually, each a “Website”), whether as a guest or a registered user. You may also take advantage of other services accessible on or through our Websites, such as decentralized applications, cryptocurrency wallets and web3 development tools (collectively, the “Tools” and together with the Websites, the “Services”).
+These terms of use are entered into by and between you and NEARCatalog. (“Company”, “we” or “us”). The following terms and conditions, together with any documents they expressly incorporate by reference (collectively, these “Terms of Use”), govern your access to and use of https://near.social/nearcatalog.near/widget/NearCatalog.App, including any content, functionality, and services available or accessible through these websites (collectively, the “Websites” and individually, each a “Website”), whether as a guest or a registered user. You may also take advantage of other services accessible on or through our Websites, such as decentralized applications, cryptocurrency wallets and web3 development tools (collectively, the “Tools” and together with the Websites, the “Services”).
 
 Please read the Terms of Use carefully before you start to use any of the Services. By using the Website or the Tools, or by clicking to accept or agree to the Terms of Use when this option is made available to you, you accept and agree to be bound and abide by these Terms of Use and the Privacy Policy, found at near.org/privacy, incorporated herein by reference. If you do not want to agree to these Terms of Use or the Privacy Policy, you must not access or use the Website or Tools.
 
@@ -183,16 +183,6 @@ We take claims of copyright infringement seriously and we will endeavor respond 
 * A statement that the information in the written notice is accurate.  
 * A statement, under penalty of perjury, that you are authorized to act on behalf of the copyright owner.
 
-*Our designated Copyright Agent to receive DMCA Notices is:*
-
-Cameron Dennis  
-Banyan Collective Inc.   
-2261 Market Street STE 100089  
-San Francisco, CA. 94114  
-United States
-
-Cameron@banyan.gg
-
 If you fail to comply with all of the requirements of Section 512(c)(3) of the DMCA, your DMCA Notice may not be effective.
 
 Please be aware that if you knowingly materially misrepresent that material or activity on the Services is infringing your copyright, you may be held liable for damages (including costs and attorneys’ fees) under Section 512(f) of the DMCA.  
@@ -261,13 +251,13 @@ If any provision of these Terms of Use is held by a court or other tribunal of c
 
 ## Entire Agreement
 
-The Terms of Use and the Privacy Policy constitute the sole and entire agreement between you and Banyan Collective Inc. regarding the Services and supersede all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral, regarding the Websites and the Tools
+The Terms of Use and the Privacy Policy constitute the sole and entire agreement between you and NEARCatalog. regarding the Services and supersede all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral, regarding the Websites and the Tools
 
 ## Your Comments and Concerns
 
 All notices of copyright infringement claims should be sent to the copyright agent designated in the Copyright Infringement section of these Terms of Use in the manner and by the means set out therein.
 
-All other feedback, comments, questions, and other communications relating to these Terms of Use should be directed to: cameron@banyan.gg  
+All other feedback, comments, questions, and other communications relating to these Terms of Use should be directed to:   
 
 `;
 
