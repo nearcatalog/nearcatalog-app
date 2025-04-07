@@ -3,7 +3,7 @@ import { Person } from "@/lib/types";
 import { fetchPeopleData } from "@/lib/near-catalog";
 
 export const metadata: Metadata = {
-  title: "NEAR Foundation Directory",
+  title: "People on NEAR Directory",
   description:
     "Connect with teams, members and organizations across the NEAR ecosystem",
 };
