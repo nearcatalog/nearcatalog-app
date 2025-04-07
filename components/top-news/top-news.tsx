@@ -21,7 +21,6 @@ function NewsItem({ news }: { news: NewsType }) {
                         <i className="bi bi-box-arrow-up-right ml-1 text-xs text-gray-400"></i>
                     )}
                     </p>
-
                 </div>
             </div>
         </a>
@@ -29,33 +28,35 @@ function NewsItem({ news }: { news: NewsType }) {
 }
 
 export default function TopNews({ news }: { news: Record<string, NewsType> | null }) {
-    // Move hooks to the top
+    // Move all hooks to the top
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const [isTouched, setIsTouched] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    // If no news, don't render anything
-    if (!news) return <></>;
-
-    const projectKeys = Object.keys(news);
-
-    // Navigation functions
+    const projectKeys = news ? Object.keys(news) : [];
+    
+    // Navigation functions need to be defined even if news is empty
     const goToNext = () => {
+        if (projectKeys.length === 0) return;
         setCurrentIndex((prevIndex) =>
             prevIndex === projectKeys.length - 1 ? 0 : prevIndex + 1
         );
     };
 
     const goToPrev = () => {
+        if (projectKeys.length === 0) return;
         setCurrentIndex((prevIndex) =>
             prevIndex === 0 ? projectKeys.length - 1 : prevIndex - 1
         );
     };
 
-    // Auto-transition effect
+    // Auto-transition effect must be defined before any returns
     useEffect(() => {
+        // Don't set up interval if there are no news items
+        if (projectKeys.length === 0) return;
+        
         if (intervalRef.current) {
             clearInterval(intervalRef.current);
             intervalRef.current = null;
@@ -73,9 +74,10 @@ export default function TopNews({ news }: { news: Record<string, NewsType> | nul
                 intervalRef.current = null;
             }
         };
-    }, [isHovered, isTouched]);
+    }, [isHovered, isTouched, projectKeys.length]);
 
-    if (projectKeys.length === 0) return null;
+    // Early return after all hooks are called
+    if (!news || projectKeys.length === 0) return null;
 
     return (
         <div
