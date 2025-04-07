@@ -61,11 +61,11 @@ export default function SearchModal() {
               </Dialog.Close>
             </Dialog.Title>
             <Dialog.Description className="hidden" />
-            <SearchInput bgColor="#1A1A17" autoSelect showClearButton />
+            <SearchInput bgColor="#1A1A17" autoSelect={true} showClearButton/>
           </div>
           <div className="mb-4 flex flex-col gap-2 px-4">
             {searchKey !== "" ? (
-              <SearchProjects searchKey={searchKey} />
+              <SearchProjects searchKey={searchKey}/>
             ) : (
               <Tags tags={uniqueTags} handleTagClick={() => setIsOpen(false)} />
             )}

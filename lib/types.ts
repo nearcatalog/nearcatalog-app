@@ -35,3 +35,29 @@ export type ProjectCategory = {
   cat_slug: string;
   data: Record<ProjectId, ProjectRecord>;
 };
+
+
+export type NewsType = {
+  id?: string;
+  title?: string;  
+  description: string;
+  imageUrl?: string;
+  url?: string;
+  date?: string; 
+}
+
+// Define the person type
+export type Person = {
+  name: string;
+  email?: string;
+  preferredContact: string;
+  telegram?: string;
+  discord?: string;
+  twitter?:string;
+  website?:string;
+  organization: string;
+  team?: string;
+  avatar?: string;
+  jobTitle?: string;
+  description?:string;
+};

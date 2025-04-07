@@ -1,0 +1,19 @@
+import { Metadata } from "next";
+import { Person } from "@/lib/types";
+import { fetchPeopleData } from "@/lib/near-catalog";
+
+export const metadata: Metadata = {
+  title: "NEAR Foundation Directory",
+  description:
+    "Contact information for members of the NEAR Foundation across different teams.",
+};
+
+import PeopleDirectory from "@/components/people/people-directory";
+
+
+
+const fetchedPeople: Person[] = await fetchPeopleData();
+
+export default function PeoplePage() {
+    return <PeopleDirectory peopleData={fetchedPeople} />;
+}

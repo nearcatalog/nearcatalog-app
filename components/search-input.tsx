@@ -11,8 +11,8 @@ interface SearchInputProps {
 
 export default function SearchInput({
   bgColor,
-  autoSelect,
   showClearButton,
+  autoSelect
 }: SearchInputProps) {
   const { searchKey, setSearchKey } = useSearchStore();
   const {
