@@ -28,17 +28,18 @@ function NewsItem({ news }: { news: NewsType }) {
     );
 }
 
-export default function TopNews( {news} : {news: Record<string, NewsType> | null}  ) {
-    if (!news) return <></>;
-    
-    // Randomize news items using Fisher-Yates shuffle algorithm
-    const projectKeys = Object.keys(news);
-
+export default function TopNews({ news }: { news: Record<string, NewsType> | null }) {
+    // Move hooks to the top
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const [isTouched, setIsTouched] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+    // If no news, don't render anything
+    if (!news) return <></>;
+
+    const projectKeys = Object.keys(news);
 
     // Navigation functions
     const goToNext = () => {
@@ -55,20 +56,17 @@ export default function TopNews( {news} : {news: Record<string, NewsType> | null
 
     // Auto-transition effect
     useEffect(() => {
-        // Clear any existing interval when dependencies change
         if (intervalRef.current) {
             clearInterval(intervalRef.current);
             intervalRef.current = null;
         }
 
-        // Only start a new interval if not hovered/touched
         if (!isHovered && !isTouched) {
             intervalRef.current = setInterval(() => {
                 goToNext();
             }, 5000); // Change news every 5 seconds
         }
 
-        // Cleanup function to clear interval on unmount or dependency changes
         return () => {
             if (intervalRef.current) {
                 clearInterval(intervalRef.current);
@@ -77,12 +75,11 @@ export default function TopNews( {news} : {news: Record<string, NewsType> | null
         };
     }, [isHovered, isTouched]);
 
-    // If no news, don't render anything
     if (projectKeys.length === 0) return null;
 
     return (
-        <div 
-            id="top-news-carousel" 
+        <div
+            id="top-news-carousel"
             className="relative container z-20 flex justify-center my-8"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -98,18 +95,18 @@ export default function TopNews( {news} : {news: Record<string, NewsType> | null
 
                 {/* Pagination indicators with navigation buttons */}
                 <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center gap-1 pb-1">
-                    <button 
+                    <button
                         onClick={goToPrev}
                         className="bg-black/30 hover:bg-black/50 text-white rounded-full p-1"
                         aria-label="Previous news"
                     >
                         <i className="bi bi-chevron-left text-xs"></i>
                     </button>
-                    
+
                     <div className="flex justify-center gap-0.5 opacity-60">
                         {projectKeys.map((_, idx) => (
-                            <button 
-                                key={idx} 
+                            <button
+                                key={idx}
                                 onClick={() => setCurrentIndex(idx)}
                                 className={`h-1 rounded-full transition-all ${
                                     idx === currentIndex ? 'bg-white/80 w-2.5' : 'bg-gray-500/40 w-1.5'
@@ -118,8 +115,8 @@ export default function TopNews( {news} : {news: Record<string, NewsType> | null
                             ></button>
                         ))}
                     </div>
-                    
-                    <button 
+
+                    <button
                         onClick={goToNext}
                         className="bg-black/30 hover:bg-black/50 text-white rounded-full p-1"
                         aria-label="Next news"
