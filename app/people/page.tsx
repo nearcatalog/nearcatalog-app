@@ -5,7 +5,7 @@ import { fetchPeopleData } from "@/lib/near-catalog";
 export const metadata: Metadata = {
   title: "NEAR Foundation Directory",
   description:
-    "Contact information for members of the NEAR Foundation across different teams.",
+    "Connect with teams, members and organizations across the NEAR ecosystem",
 };
 
 import PeopleDirectory from "@/components/people/people-directory";
