@@ -54,7 +54,7 @@ export default async function SearchPage() {
       </div>
       
       <div className="z-1 relative my-16">
-        <Search tags={uniqueTags} />
+        <Search tags={uniqueTags} autoSelect={true}/>
         <TagsModal tags={uniqueTags} />
         <SearchProjects />
       </div>

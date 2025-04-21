@@ -30,6 +30,10 @@ const routes: Route[] = [
     name: "🌐 Ecosystem Map",
     href: "/map",
   },
+  {
+    name: "👷‍♀️ People",
+    href: "/people",
+  }
 ];
 
 interface NavLinkProps {

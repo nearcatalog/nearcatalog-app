@@ -17,7 +17,7 @@ export async function generateMetadata({
 }: {
   params: { cid: string };
 }) {
-  const { cid } = params;
+  const { cid } = await params;
   const categoryData: ProjectCategory = await fetchProjectCategory(cid);
 
   if (!categoryData.cat_title) {
@@ -36,7 +36,7 @@ export async function generateMetadata({
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { cid } = params;
+  const { cid } = await params;
 
   if (!cid) {
     return <div>Category ID not found</div>;
