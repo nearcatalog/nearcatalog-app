@@ -1,7 +1,7 @@
 export default function SocialsEmbed({
     linktree
 }) {
-    const { website, github, twitter, medium, discord, telegram } = linktree;
+    const { website, github, twitter, medium, discord, telegram, potlock } = linktree;
 
     return (
         <div className="flex flex-col gap-4 rounded-lg bg-[#1b1d2a] p-4">
@@ -30,6 +30,24 @@ export default function SocialsEmbed({
                                 </div>
                             </a>
                         )}
+                        
+                        {potlock && (
+                            <a type='button'
+                                className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                href={potlock}>
+                                <div className='m-auto'>
+                                    <div className='flex items-center justify-start flex-1 space-x-4'>
+                                        <img 
+                                            src="https://indexer.nearcatalog.xyz/wp-content/uploads/2025/05/potlock.png" 
+                                            alt="Potlock" 
+                                            className="w-4 h-4" 
+                                        />
+                                        <span className='font-medium mb-[-3px]'>Potlock</span>
+                                    </div>
+                                </div>
+                            </a>
+                        )}
+
 
                         {twitter && (
                             <a type='button'
