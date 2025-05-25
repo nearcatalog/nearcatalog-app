@@ -1,6 +1,7 @@
 import { ProjectRecord } from "@/lib/types";
 import Link from "next/link";
 import ShareDropdown from "./share-dropdown";
+import Image from "next/image";
 
 const WebsiteLink = ({
   href,
@@ -34,7 +35,7 @@ interface LinkTreeProps {
 }
 
 export default function LinkTree({ project }: LinkTreeProps) {
-  const { website, github, twitter, medium, discord, telegram } =
+  const { website, github, twitter, medium, discord, telegram, potlock } =
     project.profile?.linktree;
   const { dapp, lnc } = project.profile;
   const pid = project.slug;
@@ -48,7 +49,7 @@ export default function LinkTree({ project }: LinkTreeProps) {
           <WebsiteLink
             href={website}
             ariaLabel={project.profile.name}
-            className={ (dapp ? "rounded-e-none" : "") + " w-28 border-2"}
+            className={(dapp ? "rounded-e-none" : "") + " w-28 border-2"}
           >
             <i className="bi bi-globe text-xl text-[#80E9E5]" /> Website
           </WebsiteLink>
@@ -57,7 +58,7 @@ export default function LinkTree({ project }: LinkTreeProps) {
           <WebsiteLink
             href={dapp}
             ariaLabel="Go to App"
-            className={ "w-24 border-2 " + (website ? "rounded-s-none" : "")}
+            className={"w-24 border-2 " + (website ? "rounded-s-none" : "")}
           >
             <i className="bi bi-app-indicator text-xl text-[#80E9E5]" /> App
           </WebsiteLink>
@@ -68,6 +69,16 @@ export default function LinkTree({ project }: LinkTreeProps) {
         <div
           className={`mb-3 flex flex-wrap items-center justify-start gap-3 lg:justify-end`}
         >
+          {potlock && (
+            <Link href={potlock} aria-label="Potlock">
+              <Image 
+              src="https://indexer.nearcatalog.xyz/wp-content/uploads/2025/05/potlock.png"
+              alt="Potlock"
+              className="w-5 h-5 transition-opacity duration-300 ease-in-out hover:opacity-50"
+              />
+            </Link>
+          )}
+
           {twitter && (
             <Link href={twitter} aria-label="Twitter">
               <i className="bi bi-twitter-x text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50" />

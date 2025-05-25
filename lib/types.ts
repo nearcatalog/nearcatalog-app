@@ -15,6 +15,7 @@ export type ProjectProfile = {
     medium: string;
     discord: string;
     telegram: string;
+    potlock:string;
   };
   lnc: {
     slug: string;
@@ -46,7 +47,6 @@ export type NewsType = {
   date?: string; 
 }
 
-// Define the person type
 export type Person = {
   name: string;
   email?: string;

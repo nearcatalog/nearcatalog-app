@@ -13,7 +13,7 @@ export async function fetchAllProjects(): Promise<
   });
   if (!response.ok) {
     throw new Error(
-      "Request to Near Catalog API failed with status: " + response.status,
+      "Request to Near Catalog API failed with status: " + NEAR_CATALOG_API + response.status,
     );
   }
   const rs = await response.json();
@@ -163,7 +163,6 @@ export async function fetchPeopleData(): Promise<Person[]> {
   const response = await fetch(
     "https://raw.githubusercontent.com/nearcatalog/nearcatalog-people/refs/heads/main/people-on-near.json",
     {
-      cache: "force-cache",
       next: { revalidate: 3600 } // Revalidate every hour (3600 seconds)
     }
   );
