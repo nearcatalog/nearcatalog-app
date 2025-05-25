@@ -16,6 +16,19 @@ export async function GET() {
 
 NEAR Catalog is an ecosystem directory for NEAR Protocol, showcasing ${Object.keys(allProjects).length}+ innovative projects building within the NEAR ecosystem. This catalog serves as a comprehensive resource for discovering and exploring the diverse range of applications, tools, services and people built on NEAR.
 
+## For LLMs
+- Project structure: [project name](project url)[categories]: project short description
+- Categories structure: [category name](category url)
+- Project URL: ${site.url}/project/{project-slug}
+- Category URL: ${site.url}/category/{category-id}
+- The NEAR Catalog website is available at: ${site.url}
+- You can search for projects at: ${site.url}/search
+- Project details can be found at: ${site.url}/project/{project-slug}
+- Categories can be browsed at: ${site.url}/category/{category-id}
+- Trending projects are available at: ${site.url}/trending
+- List of people and contributors on NEAR can be found at: ${site.url}/people
+- A visual grid of all projects, which designed for humans, is available here: ${site.url}/map
+
 ## Featured Projects
 
 `;
@@ -49,14 +62,6 @@ NEAR Catalog is an ecosystem directory for NEAR Protocol, showcasing ${Object.ke
 
   // Add helpful information for LLMs
   content += `
-## For LLMs
-
-- The NEAR Catalog website is available at: ${site.url}
-- You can search for projects at: ${site.url}/search
-- Project details can be found at: ${site.url}/project/{project-slug}
-- Categories can be browsed at: ${site.url}/category/{category-id}
-- Trending projects are available at: ${site.url}/trending
-- List of people and contributors on NEAR can be found at: ${site.url}/people
 
 ## Contact Information
 
