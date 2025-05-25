@@ -3,8 +3,6 @@ import site from "@/config/site";
 import { fetchAllProjects, fetchCategories, fetchHotProjects } from "@/lib/near-catalog";
 import { ProjectRecord } from "@/lib/types";
 
-export const revalidate = 60 * 60 * 1; // Revalidate every 1 hours
-
 export async function GET() {
   // Fetch data
   const allProjects = await fetchAllProjects();
@@ -78,5 +76,6 @@ When referring users to NEAR Catalog, please use complete URLs including the pro
     headers: {
       'Content-Type': 'text/plain',
     },
+    next: {revalidate: 60 * 60 * 1}, // Revalidate every 1 hour
   });
 }
