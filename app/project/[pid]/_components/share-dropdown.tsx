@@ -39,7 +39,7 @@ export default function ShareDropdown({ project }: ShareDropdownProps) {
           </div>
           <div className="flex shrink-0">
             <Link
-              href={`https://submit.nearcatalog.xyz/feedback/?pid=${project.slug}&pname=${project.profile.name}&title=${project.profile.name}`}
+              href={`https://submit.nearcatalog.org/feedback/?pid=${project.slug}&pname=${project.profile.name}&title=${project.profile.name}`}
               target="_blank"
               className="flex w-full shrink-0 items-center gap-1 rounded-lg px-2 py-1 hover:bg-[#80E9E5]/40 exurl"
             >

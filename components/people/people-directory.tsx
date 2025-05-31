@@ -35,7 +35,7 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
 
             <div className="mb-8 mt-8 flex items-center justify-center">
                 <a
-                    href="https://submit.nearcatalog.xyz/people-on-near/"
+                    href="https://submit.nearcatalog.org/people-on-near/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="rounded-full bg-gradient-to-r from-[#80E9E5] to-[#52DCD4] px-6 py-3 font-medium text-black transition-transform hover:scale-105"
