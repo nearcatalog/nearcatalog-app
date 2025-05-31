@@ -72,7 +72,7 @@ export default function LinkTree({ project }: LinkTreeProps) {
           {potlock && (
             <Link href={potlock} aria-label="Potlock">
               <Image 
-              src="https://indexer.nearcatalog.xyz/wp-content/uploads/2025/05/potlock.png"
+              src="https://indexer.nearcatalog.org/wp-content/uploads/2025/05/potlock.png"
               alt="Potlock"
               className="w-5 h-5 transition-opacity duration-300 ease-in-out hover:opacity-50"
               />
