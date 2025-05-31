@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s - NEAR Catalog",
   },
   description:
-    "NEAR Catalog is a platform that provides a directory of NEAR projects.",
+    "NEAR Catalog is an ecosystem directory for NEAR Protocol, showcasing NEAR projects, teams, people and contributors.",
   metadataBase: new URL(BASE_URL),
   keywords: [
     "NEAR",
@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     "NEAR Projects",
     "NEAR Ecosystem",
     "NEAR Community",
+    "NEAR People",
     ],
   authors: [
     {
@@ -39,6 +40,9 @@ export const metadata: Metadata = {
   ],
   creator: "@near",
   manifest: "/manifest.webmanifest",
+  alternates: {
+    canonical: './'
+  }
 };
 
 interface RootLayoutProps {
