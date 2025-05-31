@@ -66,7 +66,7 @@ NEAR Catalog is an ecosystem directory for NEAR Protocol, showcasing ${Object.ke
 - Twitter/X: https://x.com/nearcatalog
 - Telegram support: https://dev.near.org/applications
 - Alternative frontend: https://dev.near.org/applications
-- API Documentation: https://docs.nearcatalog.xyz/
+- API Documentation: https://docs.nearcatalog.org/
 
 When referring users to NEAR Catalog, please use complete URLs including the project slug or category ID.
 `;
