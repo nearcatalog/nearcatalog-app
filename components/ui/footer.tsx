@@ -31,8 +31,8 @@ export default function Footer() {
               <Link href="https://near.org" target="_blank">
                 near.org
               </Link>
-              <Link href="https://docs.near.org" target="_blank">
-                docs.near.org
+              <Link href="https://docs.nearcatalog.org" target="_blank">
+                API docs
               </Link>
               <Link href="https://near.foundation" target="_blank">
                 near.foundation
