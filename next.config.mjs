@@ -12,6 +12,7 @@
 
 const nextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "http",
@@ -36,6 +37,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "indexer.nearcatalog.xyz",
+      },
+      {
+        protocol: "https",
+        hostname: "indexer.nearcatalog.org",
       },
       {
         protocol: "http",

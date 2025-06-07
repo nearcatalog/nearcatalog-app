@@ -38,7 +38,7 @@ export default function SocialsEmbed({
                                 <div className='m-auto'>
                                     <div className='flex items-center justify-start flex-1 space-x-4'>
                                         <img 
-                                            src="https://indexer.nearcatalog.xyz/wp-content/uploads/2025/05/potlock.png" 
+                                            src="https://indexer.nearcatalog.org/wp-content/uploads/2025/05/potlock.png" 
                                             alt="Potlock" 
                                             className="w-4 h-4" 
                                         />

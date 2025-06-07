@@ -40,7 +40,7 @@ export default function Banner() {
                   title="One Trillion Agents Hackathon - Bring order to chaos. Buidl the resistance"
                 >
                   <Image
-                    src="https://indexer.nearcatalog.xyz/wp-content/uploads/2025/01/nearaihackathon.jpeg"
+                    src="https://indexer.nearcatalog.org/wp-content/uploads/2025/01/nearaihackathon.jpeg"
                     alt="One Trillion Agents Hackathon - Bring order to chaos. Buidl the resistance"
                   />
                 </a>

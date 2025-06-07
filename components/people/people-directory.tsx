@@ -10,8 +10,21 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
     const [searchQuery, setSearchQuery] = useState("");
     const [filterOrganization, setFilterOrganization] = useState<string>("All Organizations");
 
-    // Get unique organizations for filter dropdown
-    const organizations = ["All Organizations", ...Array.from(new Set(peopleData1.map(person => person.organization)))];
+    // Get unique organizations for filter dropdown, handling comma-separated values
+    const allOrganizations = new Set<string>();
+    allOrganizations.add("All Organizations");
+    
+    peopleData1.forEach(person => {
+        if (person.organization) {
+            // Split organization by comma and trim whitespace
+            const orgs = person.organization.split(",").map(org => org.trim());
+            orgs.forEach(org => {
+                if (org) allOrganizations.add(org);
+            });
+        }
+    });
+    
+    const organizations = Array.from(allOrganizations);
 
     const filteredPeople = peopleData1.filter(person => {
         const matchesSearch =
@@ -19,12 +32,23 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
             (person.jobTitle?.toLowerCase() || "").includes(searchQuery.toLowerCase()) ||
             (person.email?.toLowerCase() || "").includes(searchQuery.toLowerCase()) ||
             (person.team?.toLowerCase() || "").includes(searchQuery.toLowerCase()) ||
-            (person.description?.toLowerCase() || "").includes(searchQuery.toLowerCase()); // Added description field
+            (person.description?.toLowerCase() || "").includes(searchQuery.toLowerCase());
 
-        const matchesOrganization = filterOrganization === "All Organizations" || person.organization === filterOrganization;
+        // For organization filtering, check if any of the person's organizations match the filter
+        let matchesOrganization = filterOrganization === "All Organizations";
+        
+        if (!matchesOrganization && person.organization) {
+            const personOrgs = person.organization.split(",").map(org => org.trim());
+            matchesOrganization = personOrgs.includes(filterOrganization);
+        }
 
         return matchesSearch && matchesOrganization;
     });
+
+    // Function to display organizations with proper formatting
+    const formatOrganizations = (orgString: string) => {
+        return orgString.split(',').map(org => org.trim()).join(', ');
+    };
 
     return (
         <section className="container mx-auto my-16 px-4">
@@ -35,7 +59,7 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
 
             <div className="mb-8 mt-8 flex items-center justify-center">
                 <a
-                    href="https://submit.nearcatalog.xyz/people-on-near/"
+                    href="https://submit.nearcatalog.org/people-on-near/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="rounded-full bg-gradient-to-r from-[#80E9E5] to-[#52DCD4] px-6 py-3 font-medium text-black transition-transform hover:scale-105"
@@ -94,6 +118,7 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
                                         className="h-full w-full object-cover"
                                         width={64}
                                         height={64}
+                                        unoptimized
                                     />
                                 ) : (
                                     <div className="flex h-full w-full items-center justify-center bg-[#2a2d3e] text-[#80E9E5]">
@@ -114,12 +139,13 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
                         {
                             person.team && <p className="mb-1 text-sm text-gray-300">Team: {person.team}</p>
                         }
-                        <p className="mb-1 text-sm text-gray-300">Organization: {person.organization}</p>
+                        {/* Format organizations display */}
+                        <p className="mb-1 text-sm text-gray-300">
+                            Organization{person.organization?.includes(',') ? 's' : ''}: {person.organization ? formatOrganizations(person.organization) : 'N/A'}
+                        </p>
                         {
-
                             person.preferredContact && <p className="mb-1 text-sm text-gray-300">Preferred Contact: {person.preferredContact}</p>
                         }
-
 
                         <div className="mt-4 flex flex-col gap-2">
                             {person.email && (
