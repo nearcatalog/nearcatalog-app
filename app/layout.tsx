@@ -50,7 +50,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html>
+    <html lang="en">
       <body className={` min-h-screen bg-black font-sans antialiased`}
       >
         <div className="bg-background relative flex min-h-screen flex-col">
