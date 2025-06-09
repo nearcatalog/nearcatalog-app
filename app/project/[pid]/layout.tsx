@@ -41,9 +41,9 @@ export async function generateMetadata({
   params: { pid: string } 
 }): Promise<Metadata> {
   const { pid } = await params;
-  const projectData = await fetchProject(pid);
+  const project = await fetchProject(pid);
   
-  if (!projectData) {
+  if (!project) {
     return {
       title: "Project Not Found",
       description: "The requested project could not be found."
