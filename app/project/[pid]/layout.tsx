@@ -23,11 +23,14 @@ export async function generateMetadata(
 
   return {
     title: `${project.profile.name}`,
-    description: project.profile.tagline,
+    description: project.profile.name + " - " + project.profile.tagline,
     keywords: Object.values(project.profile.tags),
     openGraph: {
       title: `${project.profile.name} - NEAR Catalog`,
-      description: project.profile.tagline,
+      description:  project.profile.name  + " - " + project.profile.tagline,
+    },
+    alternates: {
+      canonical: `/project/${id}`,
     },
   };
 }

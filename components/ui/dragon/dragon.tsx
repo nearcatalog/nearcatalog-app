@@ -3,7 +3,7 @@ import "./dragon.css";
 export default function Dragon(){
     return (
         <div id="dragon-flying">
-            <a className="ag-dragon" title="🐲"></a>
+            <span className="ag-dragon" title="🐲"></span>
         </div>
     )
 }
