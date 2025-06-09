@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   creator: "@near",
   manifest: "/manifest.webmanifest",
   alternates: {
-    canonical: './'
+    canonical: '/'
   }
 };
 
