@@ -21,6 +21,7 @@ export default function SocialsEmbed({
                         {website && (
                             <a type='button'
                                 className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                rel="noreferrer nofollow"
                                 href={website}>
                                 <div className='m-auto'>
                                     <div className='flex items-center justify-start flex-1 space-x-4'>
@@ -34,6 +35,7 @@ export default function SocialsEmbed({
                         {potlock && (
                             <a type='button'
                                 className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                rel="noreferrer nofollow"
                                 href={potlock}>
                                 <div className='m-auto'>
                                     <div className='flex items-center justify-start flex-1 space-x-4'>
@@ -52,6 +54,7 @@ export default function SocialsEmbed({
                         {twitter && (
                             <a type='button'
                                 className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                rel="noreferrer nofollow"
                                 href={twitter}>
                                 <div className='m-auto'>
                                     <div className='flex items-center justify-start flex-1 space-x-4'>
@@ -65,6 +68,7 @@ export default function SocialsEmbed({
                         {github && (
                             <a type='button'
                                 className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                rel="noreferrer nofollow"
                                 href={github}>
                                 <div className='m-auto'>
                                     <div className='flex items-center justify-start flex-1 space-x-4'>
@@ -78,6 +82,7 @@ export default function SocialsEmbed({
                         {medium && (
                             <a type='button'
                                 className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                rel="noreferrer nofollow"
                                 href={medium}>
                                 <div className='m-auto'>
                                     <div className='flex items-center justify-start flex-1 space-x-4'>
@@ -91,7 +96,9 @@ export default function SocialsEmbed({
                         {discord && (
                             <a type='button'
                                 className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
-                                href={discord}>
+                                href={discord}
+                                rel="noreferrer nofollow"
+                                >
                                 <div className='m-auto'>
                                     <div className='flex items-center justify-start flex-1 space-x-4'>
                                         <i className="bi bi-discord text-[#80E9E5]"></i>
@@ -104,6 +111,7 @@ export default function SocialsEmbed({
                         {telegram && (
                             <a type='button'
                                 className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                rel="noreferrer nofollow"
                                 href={telegram}>
                                 <div className='m-auto'>
                                     <div className='flex items-center justify-start flex-1 space-x-4'>

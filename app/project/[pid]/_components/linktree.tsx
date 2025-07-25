@@ -18,7 +18,7 @@ const WebsiteLink = ({
     <Link
       href={href}
       target="_blank"
-      rel="noreferrer"
+      rel="noreferrer nofollow"
       aria-label={ariaLabel}
       className={
         "flex items-center justify-center gap-1 rounded-lg border border-[#80E9E5] px-2 py-1 text-sm font-bold text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50 " +
@@ -70,7 +70,7 @@ export default function LinkTree({ project }: LinkTreeProps) {
           className={`mb-3 flex flex-wrap items-center justify-start gap-3 lg:justify-end`}
         >
           {potlock && (
-            <Link href={potlock} aria-label="Potlock">
+            <Link href={potlock} aria-label="Potlock" rel="noreferrer nofollow">
               <Image 
               src="https://indexer.nearcatalog.org/wp-content/uploads/2025/05/potlock.png"
               alt="Potlock"
@@ -80,17 +80,17 @@ export default function LinkTree({ project }: LinkTreeProps) {
           )}
 
           {twitter && (
-            <Link href={twitter} aria-label="Twitter">
+            <Link href={twitter} aria-label="Twitter" rel="noreferrer nofollow">
               <i className="bi bi-twitter-x text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50" />
             </Link>
           )}
           {github && (
-            <Link href={github} aria-label={`${project.profile.name} Github`}>
+            <Link href={github} aria-label={`${project.profile.name} Github`} rel="noreferrer nofollow">
               <i className="bi bi-github text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50" />
             </Link>
           )}
           {medium && (
-            <Link href={medium} aria-label="Medium">
+            <Link href={medium} aria-label="Medium" rel="noreferrer nofollow">
               <i className="bi bi-medium text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50" />
             </Link>
           )}
@@ -100,7 +100,7 @@ export default function LinkTree({ project }: LinkTreeProps) {
             </Link>
           )}
           {telegram && (
-            <Link href={telegram} aria-label="Telegram">
+            <Link href={telegram} aria-label="Telegram" rel="noreferrer nofollow">
               <i className="bi bi-telegram text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50" />
             </Link>
           )}
@@ -110,6 +110,7 @@ export default function LinkTree({ project }: LinkTreeProps) {
               target="_blank"
               aria-label="LNC"
               className="flex gap-1 rounded bg-orange-400 px-1 text-sm font-extrabold text-black"
+              rel="noreferrer nofollow"
             >
               <ul className="flex items-baseline">
                 <li className="text-[10px]">L</li>

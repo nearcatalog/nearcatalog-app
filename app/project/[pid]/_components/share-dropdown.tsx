@@ -31,6 +31,7 @@ export default function ShareDropdown({ project }: ShareDropdownProps) {
             <Link
               href={`https://x.com/intent/post?text=Check out ${project.profile.name} - ${project.profile.tagline}%0A${site.url}/project/${project.slug}%0A📒@nearcatalog`}
               target="_blank"
+              rel="noreferrer nofollow"
               className="flex w-full shrink-0 items-center gap-1 rounded-lg px-2 py-1 hover:bg-[#80E9E5]/40 exurl"
             >
               <i className="bi bi-twitter-x text-xl"></i>
@@ -41,6 +42,7 @@ export default function ShareDropdown({ project }: ShareDropdownProps) {
             <Link
               href={`https://submit.nearcatalog.org/feedback/?pid=${project.slug}&pname=${project.profile.name}&title=${project.profile.name}`}
               target="_blank"
+              rel="noreferrer nofollow"
               className="flex w-full shrink-0 items-center gap-1 rounded-lg px-2 py-1 hover:bg-[#80E9E5]/40 exurl"
             >
               <i className="bi bi-flag text-xl"></i>
