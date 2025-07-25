@@ -125,6 +125,7 @@ export default function Navbar() {
               key={index}
               href={route.href}
               onClick={() => {
+               isOpen && toggleDropdown(); 
               }}
               className="url rounded-full px-2 py-1 text-center font-medium text-white transition-colors duration-300 ease-in-out hover:bg-[#1A1A17] focus:bg-[#282828] lg:px-4 lg:py-2"
               dangerouslySetInnerHTML={{ __html: route.name }}
