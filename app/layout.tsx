@@ -22,10 +22,12 @@ export const metadata: Metadata = {
   description:
     "NEAR Catalog is an ecosystem directory for NEAR Protocol, showcasing NEAR projects, teams, people and contributors.",
   metadataBase: new URL(BASE_URL),
+  alternates: {
+    canonical: './'
+  },
   keywords: [
     "NEAR",
     "NEAR Protocol",
-    "Catalog",
     "NEAR Catalog",
     "NEAR Projects",
     "NEAR Ecosystem",
@@ -39,10 +41,7 @@ export const metadata: Metadata = {
     },
   ],
   creator: "@near",
-  manifest: "/manifest.webmanifest",
-  alternates: {
-    canonical: './'
-  }
+  manifest: "/manifest.webmanifest"
 };
 
 interface RootLayoutProps {
@@ -52,7 +51,6 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <head />
       <body className={` min-h-screen bg-black font-sans antialiased`}
       >
         <div className="bg-background relative flex min-h-screen flex-col">

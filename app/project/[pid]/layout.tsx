@@ -6,28 +6,60 @@ type MetadataProps = {
   params: { pid: string };
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
-  const {pid: id} = await params;
+// export async function generateMetadata(
+//   { params }: Props,
+//   parent: ResolvingMetadata,
+// ): Promise<Metadata> {
+//   const {pid: id} = await params;
 
-  const project: ProjectRecord = await fetchProject(id);
+//   const project: ProjectRecord = await fetchProject(id);
 
+//   if (!project) {
+//     return {
+//       title: "Project not found",
+//       description: "Project not found",
+//     };
+//   }
+
+//   return {
+//     title: `${project.profile.name}`,
+//     description: project.profile.name + " - " + project.profile.tagline,
+//     keywords: Object.values(project.profile.tags),
+//     openGraph: {
+//       title: `${project.profile.name} - NEAR Catalog`,
+//       description:  project.profile.name  + " - " + project.profile.tagline,
+//     },
+//     alternates: {
+//       canonical: `/project/${pid}`,
+//     },
+//   };
+// }
+
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: { pid: string } 
+}): Promise<Metadata> {
+  const { pid } = await params;
+  const project = await fetchProject(pid);
+  
   if (!project) {
     return {
-      title: "Project not found",
-      description: "Project not found",
+      title: "Project Not Found",
+      description: "The requested project could not be found."
     };
   }
 
   return {
     title: `${project.profile.name}`,
-    description: project.profile.tagline,
+    description: project.profile.name + " - " + project.profile.tagline,
     keywords: Object.values(project.profile.tags),
     openGraph: {
       title: `${project.profile.name} - NEAR Catalog`,
-      description: project.profile.tagline,
+      description:  project.profile.name  + " - " + project.profile.tagline,
+    },
+    alternates: {
+      canonical: `/project/${pid}`,
     },
   };
 }

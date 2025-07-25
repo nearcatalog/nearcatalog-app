@@ -25,6 +25,7 @@ export default function GradientButton({
         href={href}
         target={target}
         className={commonClasses}
+        rel="noreferrer nofollow"
         {...(restProps as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         <span className={spanClasses}>{children}</span>

@@ -7,7 +7,7 @@ function NewsItem({ news }: { news: NewsType }) {
     return (
         <a
             style={{ userSelect: "none" }}
-            rel="noindex"
+            rel="noindex noreferrer nofollow"
             href={`${news.url}`}
             className="top-news w-full cursor-pointer overflow-hidden rounded-lg px-1 py-2 transition-all duration-300 ease-in-out md:py-3"
         >

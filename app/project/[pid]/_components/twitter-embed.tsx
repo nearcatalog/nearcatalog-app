@@ -50,7 +50,7 @@ export default function TwitterTimelineEmbed({
           data-tweet-limit="3"
           data-dnt="true"
           data-theme="dark"
-          href={`https://twitter.com/${userName}`}
+          href={`https://x.com/${userName}`}
         >
           <Loader />
         </a>

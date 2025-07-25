@@ -11,7 +11,7 @@ export default function Footer() {
             <h4 className="text-sm font-bold">Did we miss something?</h4>
             <p className="text-xs font-medium">
               Is your project also built on NEAR but you could not find it in
-              our Landscape? Submit your project and we will review it shortly.
+              our catalog? Submit your project and we will review it shortly.
             </p>
             <GradientButton
               bgColor="#1B1F2A"
@@ -25,13 +25,13 @@ export default function Footer() {
           <div className="flex flex-col justify-end gap-7 pt-8 md:pt-0 lg:pt-0">
             <div className="exurl-list flex flex-col items-start gap-2 md:flex-row md:items-center md:gap-5 lg:flex-row lg:items-center lg:gap-5">
 
-              <Link href="https://nearprotocol.eco/" target="_blank">
+              <Link href="https://nearprotocol.eco/" target="_blank" rel="noreferrer nofollow">
                 near protocol ecosystem map
               </Link>
-              <Link href="https://near.org" target="_blank">
+              <Link href="https://near.org" target="_blank" rel="noreferrer nofollow">
                 near.org
               </Link>
-              <Link href="https://near.foundation" target="_blank">
+              <Link href="https://near.foundation" target="_blank" rel="noreferrer nofollow">
                 near.foundation
               </Link>
               <Link href="https://docs.nearcatalog.org" target="_blank">
@@ -46,6 +46,7 @@ export default function Footer() {
                 href="https://x.com/nearcatalog"
                 target="_blank"
                 aria-label="X"
+                rel="noreferrer nofollow"
               >
                 <i className="bi bi-twitter-x text-[2rem]" />
               </Link>
@@ -54,6 +55,7 @@ export default function Footer() {
                 href="https://github.com/nearcatalog"
                 target="_blank"
                 aria-label="Github"
+                rel="noreferrer nofollow"
               >
                 <i className="bi bi-github text-[2rem]" />
               </Link>
@@ -62,6 +64,7 @@ export default function Footer() {
                 href="https://t.me/nearcatalogchat"
                 target="_blank"
                 aria-label="Telegram"
+                rel="noreferrer nofollow"
               >
                 <i className="bi bi-telegram text-[2rem]" />
               </Link>
