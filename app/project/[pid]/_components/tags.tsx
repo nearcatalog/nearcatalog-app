@@ -8,7 +8,7 @@ export default function Tags({
   handleTagClick?: () => void;
 }) {
   return (
-    <div id="project-tags" className="tags flex flex-wrap items-center gap-2">
+    <div className="tags flex flex-wrap items-center gap-2">
       {Object.keys(tags).map((key, index) => (
         <Link
           href={`/category/${key}`}
@@ -20,5 +20,6 @@ export default function Tags({
         </Link>
       ))}
     </div>
+    
   );
 }

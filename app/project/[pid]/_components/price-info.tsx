@@ -25,10 +25,12 @@ const formatNumber = (
 
 const formatLargeNumber = (num: number | undefined, fallback: string = "-") =>
   num !== undefined
-    ? num
-        .toFixed(0)
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    ? num <= 0
+      ? fallback
+      : num
+          .toFixed(0)
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     : fallback;
 
 export default async function PriceInfo({
@@ -47,10 +49,37 @@ export default async function PriceInfo({
     console.log(error);
     return (
       <div className="rounded-lg bg-[#1b1d2a] p-4">
-        <h3 className="space-x-2 text-xl font-bold text-red-500">
-          <i className="bi bi-exclamation-triangle"></i>
-          <span>Error fetching data</span>
-        </h3>
+
+      <h3 className="text-xl font-bold">{name} Token</h3>
+      <div className="flex flex-col">
+        <div className="flex flex-col gap-2 py-2">
+          <div className="flex items-center gap-2 mt-2">
+            <Image
+              alt={name}
+              src={tokenInfo.icon.small}
+              className="rounded-full object-cover"
+              width={32}
+              height={32}
+            />
+            <span>
+              <b>{tokenInfo.symbol}</b>
+            </span>
+          </div>
+        </div>
+
+        
+
+        <small className="mt-2">
+        <a
+          target="_blank"
+          style={{ color: "inherit" }}
+          rel="nofollow"
+          href={`https://www.coingecko.com/en/coins/${tokenInfo.platform.coingecko}`}
+        >
+          View detail on CoinGecko ↗
+        </a>
+        </small>
+      </div>
       </div>
     );
   }
@@ -77,7 +106,7 @@ export default async function PriceInfo({
 
   return (
     <div className="rounded-lg bg-[#1b1d2a] p-4">
-      <h3 className="text-xl font-bold">{name} Token Status</h3>
+      <h3 className="text-xl font-bold">{name} Token</h3>
       <div className="flex flex-col">
         <div className="flex flex-col gap-2 p-2">
           <div className="flex items-center gap-2">
@@ -85,27 +114,39 @@ export default async function PriceInfo({
               alt={name}
               src={tokenInfo.icon.small}
               className="rounded-full object-cover"
-              width={25}
-              height={25}
+              width={32}
+              height={32}
             />
             <span>
               <b>{tokenInfo.symbol}</b>
               <small>/usd</small>
             </span>
           </div>
-          <h4 className="text-3xl font-medium">
-            ${current_price?.usd ?? " -"}
+            <h4 className="text-3xl font-medium">
+            ${
+              current_price?.usd !== undefined
+              ? (() => {
+                const v = current_price.usd;
+                if (v === 0) return "0";
+                if (Math.abs(v) < 1e-6)
+                  return v.toFixed(12).replace(/0+$/,"").replace(/\.$/,"");
+                if (Math.abs(v) < 1)
+                  return v.toFixed(10).replace(/0+$/,"").replace(/\.$/,"");
+                return v.toFixed(4).replace(/0+$/,"").replace(/\.$/,"");
+                })()
+              : "-"
+            }
             <small
               className={`ml-2 text-sm font-medium ${priceChangeClassName}`}
             >
               {formatNumber(
-                price_change_percentage_24h_in_currency?.usd,
-                2,
-                "-",
+              price_change_percentage_24h_in_currency?.usd,
+              2,
+              "-",
               )}
               %
             </small>
-          </h4>
+            </h4>
         </div>
         <div className="flex flex-col flex-wrap gap-4 lg:flex-row">
           {[
@@ -116,7 +157,7 @@ export default async function PriceInfo({
               value: formatLargeNumber(total_volume?.usd),
             },
             { label: "24h low", value: formatNumber(low_24h?.usd, 8) },
-            { label: "Market Cap", value: formatLargeNumber(market_cap?.usd) },
+            { label: "Market Cap", value: formatLargeNumber(market_cap?.usd)  },
             {
               label: "Circulating Supply",
               value: formatLargeNumber(circulating_supply),
@@ -133,7 +174,7 @@ export default async function PriceInfo({
           ))}
         </div>
       </div>
-      <div className="mt-2">
+      <small className="mt-2">
         <a
           target="_blank"
           style={{ color: "inherit" }}
@@ -142,7 +183,7 @@ export default async function PriceInfo({
         >
           View on CoinGecko ↗
         </a>
-      </div>
+      </small>
     </div>
   );
 }
