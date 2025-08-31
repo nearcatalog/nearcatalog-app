@@ -8,7 +8,8 @@ export default function AwesomeNearCard({ item }: { item: AwesomeNearItem }) {
         <Link 
             href={item.url} 
             target="_blank"
-            rel="noopener noreferrer"
+            rel="nofollow noopener noreferrer"
+            referrerPolicy="no-referrer-when-downgrade"
             className="flex h-full flex-col rounded-lg bg-[#18191E] p-6 transition-all hover:scale-[1.02] hover:bg-[#1E1F24]"
         >
             <div className="mb-4 flex items-center gap-3">

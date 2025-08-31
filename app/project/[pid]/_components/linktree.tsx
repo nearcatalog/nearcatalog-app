@@ -74,6 +74,8 @@ export default function LinkTree({ project }: LinkTreeProps) {
               <Image 
               src="https://indexer.nearcatalog.org/wp-content/uploads/2025/05/potlock.png"
               alt="Potlock"
+              width={16}
+              height={16}
               className="w-5 h-5 transition-opacity duration-300 ease-in-out hover:opacity-50"
               />
             </Link>
