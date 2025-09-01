@@ -31,14 +31,17 @@ function ChainInfo({
 }: ChainInfoProps) {
   return (
     <div className="flex flex-col">
-      <a
-        href={explorerUrl}
-        target="_blank"
-        title={chainTitle}
-        rel="noopener noreferrer"
-      >
-        {chainName} ↗
-      </a>
+      <small className="mb-2">
+        <a
+          href={explorerUrl}
+          target="_blank"
+          title={chainTitle}
+          rel="noopener noreferrer"
+        >
+          {chainName} ↗
+        </a>
+      </small>
+
       <div
         ref={refObj}
         onClick={() => onClick(refObj)}
@@ -68,7 +71,7 @@ export default function TokenInfo({ tokenInfo }: TokenInfoProps) {
   return (
     (near || aurora || ethereum) && (
       <div className="flex flex-col gap-2 rounded-lg bg-[#1b1d2a] p-4">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <h3 className="text-xl font-bold">Token Contract</h3>
           {near && (
             <ChainInfo

@@ -8,7 +8,6 @@ export default function ProjectHeader({
   projectData: ProjectRecord;
 }) {
   const { profile } = projectData;
-
   return (
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
       <ImageWithFallback
@@ -24,7 +23,10 @@ export default function ProjectHeader({
           {profile?.name}
         </h1>
         <p className="text-base font-medium">{profile?.tagline}</p>
-        <Tags tags={profile.tags} />
+
+        <div id="project-tags" className="tags flex flex-wrap items-center gap-2">
+            <Tags tags={profile.tags} />
+        </div>
       </div>
     </div>
   );

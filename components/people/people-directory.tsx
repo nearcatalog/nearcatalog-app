@@ -7,7 +7,7 @@ import Image from "next/image";
 function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
     // Define priority organizations (order matters - first in array has highest priority)
     const priorityOrgs = ["NEAR Foundation", "NEAR Dev"];
-    
+
     // First randomize the whole list, then sort to show priority organizations first
     const peopleData1 = [...peopleData]
         .sort(() => Math.random() - 0.5) // Random shuffle first
@@ -23,7 +23,7 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
                     }
                 }
             }
-            
+
             // Check priority level for person B
             let bPriority = -1;
             if (b.organization) {
@@ -35,7 +35,7 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
                     }
                 }
             }
-            
+
             // Sort by priority (lower index = higher priority)
             if (aPriority !== -1 && bPriority !== -1) {
                 return aPriority - bPriority; // Both have priority, sort by priority order
@@ -53,7 +53,7 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
     // Get unique organizations for filter dropdown, handling comma-separated values
     const allOrganizations = new Set<string>();
     allOrganizations.add("All Organizations");
-    
+
     peopleData1.forEach(person => {
         if (person.organization) {
             // Split organization by comma and trim whitespace
@@ -63,7 +63,7 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
             });
         }
     });
-    
+
     const organizations = Array.from(allOrganizations);
 
     const filteredPeople = peopleData1.filter(person => {
@@ -76,7 +76,7 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
 
         // For organization filtering, check if any of the person's organizations match the filter
         let matchesOrganization = filterOrganization === "All Organizations";
-        
+
         if (!matchesOrganization && person.organization) {
             const personOrgs = person.organization.split(",").map(org => org.trim());
             matchesOrganization = personOrgs.includes(filterOrganization);
@@ -96,18 +96,6 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
                 title="People on NEAR Directory"
                 description="Connect with teams, members and organizations across the NEAR ecosystem"
             />
-
-            <div className="mb-8 mt-8 flex items-center justify-center">
-                <a
-                    href="https://submit.nearcatalog.org/people-on-near/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-full bg-gradient-to-r from-[#80E9E5] to-[#52DCD4] px-6 py-3 font-medium text-black transition-transform hover:scale-105"
-                >
-                    <i className="bi bi-plus-circle mr-2"></i>
-                    New Submission
-                </a>
-            </div>
 
             <div className="mb-8 mt-6 flex flex-col gap-4 sm:flex-row">
                 {/* Search input */}
@@ -139,6 +127,18 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
                         <i className="bi bi-chevron-down text-[#80E9E5]"></i>
                     </div>
                 </div>
+            </div>
+
+            <div className="mb-8 flex items-center justify-center">
+                <a
+                    href="https://submit.nearcatalog.org/people-on-near/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#80E9E5] to-[#52DCD4] px-4 py-2 text-sm font-medium text-black transition-transform hover:scale-105"
+                >
+                    <i className="bi bi-plus-circle mr-2"></i>
+                    New Submission
+                </a>
             </div>
 
             {/* People cards grid */}
