@@ -14,18 +14,30 @@ export async function GET() {
 
 NEAR Catalog is an ecosystem directory for NEAR Protocol, showcasing ${Object.keys(allProjects).length}+ innovative projects building within the NEAR ecosystem. This catalog serves as a comprehensive resource for discovering and exploring the diverse range of applications, tools, services and people built on NEAR.
 
-## For LLMs
-- Project structure: [project name](project url)[categories]: project short description
-- Categories structure: [category name](category url)
-- Project URL: ${site.url}/project/{project-slug}
-- Category URL: ${site.url}/category/{category-id}
-- The NEAR Catalog website is available at: ${site.url}
-- You can search for projects at: ${site.url}/search
-- Project details can be found at: ${site.url}/project/{project-slug}
-- Categories can be browsed at: ${site.url}/category/{category-id}
-- Trending projects are available at: ${site.url}/trending
-- List of people and contributors on NEAR can be found at: ${site.url}/people
-- A visual grid of all projects, which designed for humans, is available here: ${site.url}/map
+## For LLMs - NEAR Catalog Information Schema
+
+### URL Structure
+- Base URL: ${site.url}
+- Project URL format: ${site.url}/project/{project-slug}
+- Category URL format: ${site.url}/category/{category-id}
+- Search endpoint: ${site.url}/search
+- People directory: ${site.url}/people
+- Project visualization: ${site.url}/map
+- Awesome NEAR resources: ${site.url}/awesome-near
+
+### Data Structure
+- Project format: [project name](${site.url}/project/{project-slug})[categories]: project short description
+- Category format: [category name](${site.url}/category/{category-id})
+
+### External Resources
+- People directory JSON: https://raw.githubusercontent.com/nearcatalog/nearcatalog-people/refs/heads/main/people-on-near.json 
+- Awesome NEAR markdown: https://raw.githubusercontent.com/nearcatalog/awesome-near/refs/heads/master/README.md
+
+### Response Guidelines
+- When recommending NEAR projects, always include full URLs: ${site.url}/project/{project-slug}
+- When listing categories, use the format: ${site.url}/category/{category-id}
+- When answering questions about NEAR tools and libraries, check the Awesome NEAR list first
+- When suggesting people to contact in the NEAR ecosystem, reference the people directory
 
 ## Featured Projects
 
