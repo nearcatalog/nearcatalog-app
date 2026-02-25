@@ -8,7 +8,7 @@ import Dragon from "@/components/ui/dragon/dragon";
 import Navbar from "@/components/ui/navbar";
 import site from "@/config/site";
 import SearchModal from "@/components/modals/search";
-import Banner from "@/components/ui/banner/banner";
+// import Banner from "@/components/ui/banner/banner";
 
 // const manrope = Manrope({ subsets: ["latin"] });
 
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "NEAR dApps",
     "NEAR DeFi",
     "NEAR AI",
-    "NEAR Intents"
+    "NEAR Intents",
     "NEAR Chain Abstraction",
     "blockchain directory",
     "crypto projects",
@@ -124,7 +124,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Footer />
           <Dragon/>
         </div>
-        <Banner/>
+        {/* <Banner/> */}
       </body>
     </html>
   );
