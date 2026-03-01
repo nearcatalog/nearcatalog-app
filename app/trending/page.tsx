@@ -3,8 +3,13 @@ import Fire from "@/components/icons/fire";
 import { fetchHotProjects } from "@/lib/near-catalog";
 import { ProjectId, ProjectRecord } from "@/lib/types";
 import ProjectCard from "@/components/ui/project-card";
+import { Metadata } from "next";
 
-
+export const metadata: Metadata = {
+  title: "Trending Projects",
+  description:
+    "Discover the hottest and most popular projects in the NEAR ecosystem, based on usage and transactions.",
+};
 
 // ProjectsListProps
 export default async function TrendingProjects() {

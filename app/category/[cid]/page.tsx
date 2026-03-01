@@ -28,10 +28,29 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${categoryData.cat_title} Projects`,
+    title: `${categoryData.cat_title} Projects in NEAR Catalog`,
     description:
       categoryData.cat_desc ||
-      `Discover ${categoryData.cat_title} projects`,
+      `Explore ${categoryData.cat_title} projects in the NEAR ecosystem. Discover innovative blockchain applications and tools built on NEAR Protocol.`,
+    keywords: [cid, "NEAR", "NEAR Projects", categoryData.cat_title],
+    openGraph: {
+      title: `${categoryData.cat_title} Projects - NEAR Catalog`,
+      description:
+        categoryData.cat_desc ||
+        `Explore ${categoryData.cat_title} projects in the NEAR ecosystem.`,
+      type: "website",
+      url: `https://nearcatalog.xyz/category/${cid}`,
+    },
+    twitter: {
+      card: "summary",
+      title: `${categoryData.cat_title} Projects - NEAR Catalog`,
+      description:
+        categoryData.cat_desc ||
+        `Explore ${categoryData.cat_title} projects in the NEAR ecosystem.`,
+    },
+    alternates: {
+      canonical: `/category/${cid}`,
+    },
   };
 }
 

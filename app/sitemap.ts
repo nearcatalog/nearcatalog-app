@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { ProjectRecord } from "@/lib/types";
 import { fetchAllProjects } from "@/lib/near-catalog";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; 
 
 const BASE_URL = process.env.BASE_URL;
 

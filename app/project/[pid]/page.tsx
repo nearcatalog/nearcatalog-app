@@ -9,6 +9,7 @@ import SocialsEmbed from "./_components/socials-embed";
 import Markdown from "react-markdown";
 import ErrorImage from "@/public/assets/images/error.webp";
 import remarkGfm from "remark-gfm";
+import { ProjectSchema } from "@/components/seo/json-ld";
 
 interface ProjectPageProps {
   params: {
@@ -59,6 +60,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <main id="project-detail" className="container mx-auto my-4 flex flex-col gap-4 px-4 lg:my-12">
+      <ProjectSchema project={projectData} />
       <div className="flex flex-col justify-between gap-4 lg:flex-row">
         <ProjectHeader projectData={projectData} />
         <LinkTree project={projectData} />

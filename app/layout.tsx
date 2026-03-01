@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s - NEAR Catalog",
   },
   description:
-    "NEAR Catalog is an ecosystem directory for NEAR Protocol, showcasing NEAR projects, teams, people and contributors.",
+    "NEAR Catalog is #1 ecosystem directory for NEAR Protocol, showcasing NEAR projects, teams, people and contributors.",
   metadataBase: new URL(BASE_URL),
   alternates: {
     canonical: './'
@@ -31,6 +31,14 @@ export const metadata: Metadata = {
     "NEAR Catalog",
     "NEAR Projects",
     "NEAR Ecosystem",
+    "NEAR dApps",
+    "NEAR DeFi",
+    "NEAR AI",
+    "NEAR Intents",
+    "NEAR Chain Abstraction",
+    "blockchain directory",
+    "crypto projects",
+    "Web3 applications",
     "NEAR Community",
     "NEAR People",
     ],
@@ -40,8 +48,39 @@ export const metadata: Metadata = {
       url: BASE_URL,
     },
   ],
-  creator: "@near",
-  manifest: "/manifest.webmanifest"
+  creator: "@nearcatalog",
+  manifest: "/manifest.webmanifest",
+  twitter: {
+    card: "summary_large_image",
+    site: "@nearcatalog",
+    creator: "@nearcatalog",
+    title: "NEAR Catalog - Explore NEAR Projects, People and mores",
+    description: "NEAR Catalog is #1 ecosystem directory for NEAR Protocol, showcasing NEAR projects, teams, people and contributors.",
+    images: [
+      {
+        url: `${BASE_URL}/og-image.webp`,
+        width: 1200,
+        height: 630,
+        alt: "NEAR Catalog - NEAR Ecosystem Directory"
+      }
+    ]
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: BASE_URL,
+    title: "NEAR Catalog - Discover NEAR Projects, People and mores",
+    description: "NEAR Catalog is #1 ecosystem directory for NEAR Protocol, showcasing NEAR projects, teams, people and contributors.",
+    siteName: "NEAR Catalog",
+    images: [
+      {
+        url: `${BASE_URL}/og-image.webp`,
+        width: 1200,
+        height: 630,
+        alt: "NEAR Catalog - NEAR Ecosystem Directory"
+      }
+    ]
+  }
 };
 
 interface RootLayoutProps {
@@ -49,8 +88,33 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NEAR Catalog",
+    "url": BASE_URL,
+    "logo": `${BASE_URL}/favicon.ico`,
+    "sameAs": [
+      "https://x.com/nearcatalog",
+      "https://github.com/nearcatalog",
+      "https://t.me/nearcatalogchat"
+    ],
+    "description": "NEAR Catalog is #1 ecosystem directory for NEAR Protocol, showcasing NEAR projects, teams, people and contributors.",
+    "contact": {
+      "@type": "ContactPoint",
+      "url": BASE_URL,
+      "contactType": "Customer Service"
+    }
+  };
+
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body className={` min-h-screen bg-black font-sans antialiased`}
       >
         <div className="bg-background relative flex min-h-screen flex-col">
@@ -60,6 +124,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Footer />
           <Dragon/>
         </div>
+        {/* <Banner/> */}
       </body>
     </html>
   );

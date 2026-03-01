@@ -17,7 +17,7 @@ export default function Footer() {
               bgColor="#1B1F2A"
               target="_blank"
               className="exurl btn-submit-project"
-              href={"https://dev.near.org/nearcatalog.near/widget/submit"}
+              href={"https://submit.nearcatalog.org"}
             >
               Submit project
             </GradientButton>
@@ -86,7 +86,7 @@ export default function Footer() {
           </Link>
           <p className="max-w-92 text-xs">
             NEAR Catalog is made possible by the community of NEAR China, NEAR Vietnam Hub, NEAR Banyan, NEAR Balkans,
-            Build DAO and you 🫵😍. <a href="https://dev.near.org/nearcatalog.near/widget/submit">[Submit new project here]</a>
+            Build DAO and you 🫵😍. <a href="https://submit.nearcatalog.org">[Submit new project here]</a>
           </p>
         </div>
       </div>

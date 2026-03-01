@@ -46,17 +46,37 @@ export async function generateMetadata({
   if (!project) {
     return {
       title: "Project Not Found",
-      description: "The requested project could not be found."
+      description: "The requested project could not be found in NEAR Catalog."
     };
   }
 
+  const projectTags = Object.keys(project.profile.tags || {});
+  const imageUrl = project.profile.image?.url || "https://nearcatalog.xyz/favicon.ico";
+
   return {
-    title: `${project.profile.name}`,
-    description: project.profile.name + " - " + project.profile.tagline,
-    keywords: Object.values(project.profile.tags),
+    title: `${project.profile.name} - NEAR Project`,
+    description: `${project.profile.tagline} - Discover ${project.profile.name} on NEAR Catalog, the #1 NEAR ecosystem directory.`,
+    keywords: [project.profile.name, ...projectTags, "NEAR", "NEAR Project"],
     openGraph: {
+      type: "website",
       title: `${project.profile.name} - NEAR Catalog`,
-      description:  project.profile.name  + " - " + project.profile.tagline,
+      description: `${project.profile.tagline} - Discover ${project.profile.name} on NEAR Catalog, the #1 NEAR ecosystem directory.`,
+      url: `https://nearcatalog.xyz/project/${pid}`,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: project.profile.name
+        }
+      ]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.profile.name} - NEAR Catalog`,
+      description: `${project.profile.tagline}`,
+      images: [imageUrl],
+      creator: "@nearcatalog"
     },
     alternates: {
       canonical: `/project/${pid}`,

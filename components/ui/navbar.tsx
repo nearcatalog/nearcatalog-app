@@ -19,8 +19,8 @@ const routes: Route[] = [
     href: "/trending",
   },
   {
-    name: '<image src="https://indexer.nearcatalog.org/wp-content/uploads/2024/12/near-icon.webp" alt="NEAR Chain Abstraction" class="w-6 h-6 inline-block mr-2"> Chain Abstraction ',
-    href: "/category/chain-abstraction",
+    name: '<image src="https://indexer.nearcatalog.org/wp-content/uploads/2024/12/near-icon.webp" alt="NEAR Intents" class="w-6 h-6 inline-block mr-2"> NEAR Intents ',
+    href: "/category/near-intents",
   },
   // {
   //   name: '<img src="https://indexer.nearcatalog.org/wp-content/uploads/2024/12/aurora-icon.webp" alt="Aurora Virtual Chain" class="inline-block w-6 h-6 mr-2" /> Virtual Chain',
@@ -81,7 +81,7 @@ export default function Navbar() {
           <div className="hidden min-w-max flex-1 shrink-0 items-center justify-end gap-2 md:flex">
             <GradientButton
               target="_blank"
-              href={"https://dev.near.org/nearcatalog.near/widget/submit"}
+              href={"https://submit.nearcatalog.org"}
               className="btn-submit-project"
             >
               Submit project
@@ -140,7 +140,7 @@ export default function Navbar() {
             key="submit"
             onClick={() => setIsOpen(false)}
             target="_blank"
-            href={"https://dev.near.org/nearcatalog.near/widget/submit"}
+            href={"https://submit.nearcatalog.org"}
             className="btn-submit-project"
           >
             Submit Project

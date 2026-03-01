@@ -7,7 +7,13 @@ import { fetchAllProjects } from "@/lib/near-catalog";
 import SearchProjects from "@/components/home/searchProjects";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import TagsModal from "@/components/modals/tags";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Search Projects",
+  description:
+    "Explore a wide range of innovative projects in the NEAR ecosystem and find the ones that inspire you.",
+};
 
 export default async function SearchPage() {
   const projects = await fetchAllProjects();

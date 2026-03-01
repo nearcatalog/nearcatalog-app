@@ -29,8 +29,8 @@
 
 .ag-dragon:before {
   content: "";
-  background: url("https://indexer.nearcatalog.org/wp-content/uploads/2025/08/JAMBO-1.png") no-repeat scroll 0 0;
-  /* background: url("https://indexer.nearcatalog.org/wp-content/uploads/2025/08/dragon.png") no-repeat scroll 0 0; */
+  /* background: url("https://indexer.nearcatalog.org/wp-content/uploads/2025/08/JAMBO-1.png") no-repeat scroll 0 0; */
+  background: url("https://indexer.nearcatalog.org/wp-content/uploads/2025/08/dragon.png") no-repeat scroll 0 0;
   background-size: 100% auto;
 
   position: absolute;
