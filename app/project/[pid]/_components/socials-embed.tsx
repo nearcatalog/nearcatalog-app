@@ -1,17 +1,19 @@
+import Image from "next/image";
+
 export default function SocialsEmbed({
     linktree
-}) {
-    const { website, github, twitter, medium, discord, telegram, potlock } = linktree;
+}: { linktree: any }) {
+    const { website, github, twitter, medium, discord, telegram, potlock } = linktree || {};
 
     return (
-        <div className="flex flex-col gap-4 rounded-lg bg-[#1b1d2a] p-4">
-            <h3 className="space-x-2 text-xl font-bold">
+        <div className="flex flex-col gap-4 rounded-sm border border-border-default bg-bg-surface p-4">
+            <h3 className="text-sm text-text-secondary uppercase tracking-widest font-bold">
                 <span>Socials</span>
             </h3>
 
             <div
-                className="overflow-y-auto rounded-xl"
-                style={{ maxHeight: "500px", minHeight: "500px" }}
+                className="overflow-y-auto w-full no-scrollbar"
+                style={{ maxHeight: "300px" }}
             >
 
 
@@ -20,13 +22,13 @@ export default function SocialsEmbed({
 
                         {website && (
                             <a type='button'
-                                className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                className='flex break-inside bg-transparent text-text-primary border-border-default border rounded-sm px-4 py-3 mb-2 w-full transition-colors hover:border-accent-primary hover:text-accent-primary hover:shadow-[0_0_10px_rgba(0,255,163,0.2)]'
                                 rel="noreferrer nofollow"
                                 href={website}>
-                                <div className='m-auto'>
-                                    <div className='flex items-center justify-start flex-1 space-x-4'>
-                                        <i className="bi bi-globe text-[#80E9E5]"></i>
-                                        <span className='font-medium mb-[-3px]'>Website</span>
+                                <div className='m-auto w-full'>
+                                    <div className='flex items-center text-center justify-center flex-1 space-x-3'>
+                                        <i className="bi bi-globe text-accent-primary"></i>
+                                        <span className='font-bold uppercase tracking-wider text-xs cyber-mono'>Website</span>
                                     </div>
                                 </div>
                             </a>
@@ -34,17 +36,20 @@ export default function SocialsEmbed({
                         
                         {potlock && (
                             <a type='button'
-                                className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                className='flex break-inside bg-transparent text-text-primary border-border-default border rounded-sm px-4 py-3 mb-2 w-full transition-colors hover:border-accent-primary hover:text-accent-primary hover:shadow-[0_0_10px_rgba(0,255,163,0.2)]'
                                 rel="noreferrer nofollow"
                                 href={potlock}>
-                                <div className='m-auto'>
-                                    <div className='flex items-center justify-start flex-1 space-x-4'>
-                                        <img 
-                                            src="https://indexer.nearcatalog.org/wp-content/uploads/2025/05/potlock.png" 
+                                <div className='m-auto w-full'>
+                                    <div className='flex items-center text-center justify-center flex-1 space-x-3'>
+                                        <Image 
+                                            src="https://indexer.nearcatalog.xyz/wp-content/uploads/2025/05/potlock.png" 
                                             alt="Potlock" 
-                                            className="w-4 h-4" 
+                                            width={16}
+                                            height={16}
+                                            className="w-4 h-4 grayscale contrast-200" 
+                                            unoptimized
                                         />
-                                        <span className='font-medium mb-[-3px]'>Potlock</span>
+                                        <span className='font-bold uppercase tracking-wider text-xs cyber-mono'>Potlock</span>
                                     </div>
                                 </div>
                             </a>
@@ -53,13 +58,13 @@ export default function SocialsEmbed({
 
                         {twitter && (
                             <a type='button'
-                                className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                className='flex break-inside bg-transparent text-text-primary border-border-default border rounded-sm px-4 py-3 mb-2 w-full transition-colors hover:border-accent-primary hover:text-accent-primary hover:shadow-[0_0_10px_rgba(0,255,163,0.2)]'
                                 rel="noreferrer nofollow"
                                 href={twitter}>
-                                <div className='m-auto'>
-                                    <div className='flex items-center justify-start flex-1 space-x-4'>
-                                        <i className="bi bi-twitter-x text-[#80E9E5]"></i>
-                                        <span className='font-medium mb-[-3px]'>Twitter</span>
+                                <div className='m-auto w-full'>
+                                    <div className='flex items-center text-center justify-center flex-1 space-x-3'>
+                                        <i className="bi bi-twitter-x text-accent-primary"></i>
+                                        <span className='font-bold uppercase tracking-wider text-xs cyber-mono'>Twitter</span>
                                     </div>
                                 </div>
                             </a>
@@ -67,13 +72,13 @@ export default function SocialsEmbed({
 
                         {github && (
                             <a type='button'
-                                className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                className='flex break-inside bg-transparent text-text-primary border-border-default border rounded-sm px-4 py-3 mb-2 w-full transition-colors hover:border-accent-primary hover:text-accent-primary hover:shadow-[0_0_10px_rgba(0,255,163,0.2)]'
                                 rel="noreferrer nofollow"
                                 href={github}>
-                                <div className='m-auto'>
-                                    <div className='flex items-center justify-start flex-1 space-x-4'>
-                                        <i className="bi bi-github text-[#80E9E5]"></i>
-                                        <span className='font-medium mb-[-3px]'>Github</span>
+                                <div className='m-auto w-full'>
+                                    <div className='flex items-center text-center justify-center flex-1 space-x-3'>
+                                        <i className="bi bi-github text-accent-primary"></i>
+                                        <span className='font-bold uppercase tracking-wider text-xs cyber-mono'>Github</span>
                                     </div>
                                 </div>
                             </a>
@@ -81,13 +86,13 @@ export default function SocialsEmbed({
 
                         {medium && (
                             <a type='button'
-                                className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                className='flex break-inside bg-transparent text-text-primary border-border-default border rounded-sm px-4 py-3 mb-2 w-full transition-colors hover:border-accent-primary hover:text-accent-primary hover:shadow-[0_0_10px_rgba(0,255,163,0.2)]'
                                 rel="noreferrer nofollow"
                                 href={medium}>
-                                <div className='m-auto'>
-                                    <div className='flex items-center justify-start flex-1 space-x-4'>
-                                        <i className="bi bi-bookmark-star text-[#80E9E5]"></i>
-                                        <span className='font-medium mb-[-3px]'>Whitepaper/Docs</span>
+                                <div className='m-auto w-full'>
+                                    <div className='flex items-center text-center justify-center flex-1 space-x-3'>
+                                        <i className="bi bi-bookmark-star text-accent-primary"></i>
+                                        <span className='font-bold uppercase tracking-wider text-xs cyber-mono'>Whitepaper/Docs</span>
                                     </div>
                                 </div>
                             </a>
@@ -95,14 +100,14 @@ export default function SocialsEmbed({
 
                         {discord && (
                             <a type='button'
-                                className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                className='flex break-inside bg-transparent text-text-primary border-border-default border rounded-sm px-4 py-3 mb-2 w-full transition-colors hover:border-accent-primary hover:text-accent-primary hover:shadow-[0_0_10px_rgba(0,255,163,0.2)]'
                                 href={discord}
                                 rel="noreferrer nofollow"
                                 >
-                                <div className='m-auto'>
-                                    <div className='flex items-center justify-start flex-1 space-x-4'>
-                                        <i className="bi bi-discord text-[#80E9E5]"></i>
-                                        <span className='font-medium mb-[-3px]'>Discord</span>
+                                <div className='m-auto w-full'>
+                                    <div className='flex items-center text-center justify-center flex-1 space-x-3'>
+                                        <i className="bi bi-discord text-accent-primary"></i>
+                                        <span className='font-bold uppercase tracking-wider text-xs cyber-mono'>Discord</span>
                                     </div>
                                 </div>
                             </a>
@@ -110,13 +115,13 @@ export default function SocialsEmbed({
 
                         {telegram && (
                             <a type='button'
-                                className='flex break-inside bg-black text-white border-[#80E9E5] border-2 rounded-full px-6 py-3 mb-4 w-full dark:bg-slate-800 dark:text-white hover:opacity-80'
+                                className='flex break-inside bg-transparent text-text-primary border-border-default border rounded-sm px-4 py-3 mb-2 w-full transition-colors hover:border-accent-primary hover:text-accent-primary hover:shadow-[0_0_10px_rgba(0,255,163,0.2)]'
                                 rel="noreferrer nofollow"
                                 href={telegram}>
-                                <div className='m-auto'>
-                                    <div className='flex items-center justify-start flex-1 space-x-4'>
-                                        <i className="bi bi-telegram text-[#80E9E5]"></i>
-                                        <span className='font-medium mb-[-3px]'>Telegram</span>
+                                <div className='m-auto w-full'>
+                                    <div className='flex items-center text-center justify-center flex-1 space-x-3'>
+                                        <i className="bi bi-telegram text-accent-primary"></i>
+                                        <span className='font-bold uppercase tracking-wider text-xs cyber-mono'>Telegram</span>
                                     </div>
                                 </div>
                             </a>

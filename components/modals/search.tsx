@@ -1,49 +1,42 @@
 "use client";
 
 import { useSearchModalStore } from "@/store/search-modal-store";
+import { useSearchStore } from "@/store/search-store";
+import { useProjectsStore } from "@/store/projects-store";
 import * as Dialog from "@radix-ui/react-dialog";
 import SearchInput from "@/components/search-input";
 import { ProjectRecord } from "@/lib/types";
-import { fetchAllProjects } from "@/lib/near-catalog";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SearchProjects from "@/components/home/searchProjects";
-import Tags from "@/app/project/[pid]/_components/tags";
+import Tags from "@/components/ui/tags";
 
 export default function SearchModal() {
   const { isOpen, setIsOpen, searchKey } = useSearchModalStore();
+  const { showInactive } = useSearchStore();
+  const { allProjects, fetchAllProjects } = useProjectsStore();
 
-  const [projects, setProjects] = useState<null | Record<
-    string,
-    ProjectRecord
-  >>();
-
+  // Trigger a fetch when the modal opens (no-op if already cached)
   useEffect(() => {
-    fetchAllProjects()
-      .then((data) => setProjects(data))
-      .catch((err) => {
-        throw new Error(err);
-      });
-  }, []);
+    if (isOpen) {
+      fetchAllProjects();
+    }
+  }, [isOpen, fetchAllProjects]);
 
-  useEffect(() => {
-    !isOpen
-  }, [isOpen]);
-
-  if (!projects) {
-    return null;
-  }
-
-  const projectArray: ProjectRecord[] = Object.values(projects);
-  let tags: Record<string, string>[] = projectArray
-    .map((project: ProjectRecord) => project.profile.tags)
-    .flat();
+  const projectArray: ProjectRecord[] = allProjects
+    ? Object.values(allProjects)
+    : [];
+  const activeProjects = showInactive
+    ? projectArray
+    : projectArray.filter(
+        (project) => project.profile?.phase?.toLowerCase() !== "inactive",
+      );
 
   let uniqueTags: Record<string, string> = {};
 
-  tags.forEach((tag) => {
-    Object.keys(tag).forEach((key) => {
+  activeProjects.forEach((project) => {
+    Object.keys(project.profile.tags).forEach((key) => {
       if (!uniqueTags[key]) {
-        uniqueTags[key] = tag[key];
+        uniqueTags[key] = project.profile.tags[key];
       }
     });
   });

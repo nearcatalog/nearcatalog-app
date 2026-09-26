@@ -1,9 +1,9 @@
 "use client";
 
-import { fetchAllProjects, searchProjects } from "@/lib/near-catalog";
 import { ProjectId, ProjectRecord } from "@/lib/types";
 import { useSearchStore } from "@/store/search-store";
-import { useEffect, useState } from "react";
+import { useProjectsStore } from "@/store/projects-store";
+import { useEffect, useState, useMemo } from "react";
 import ProjectSkeleton from "@/components/ui/project-skeleton";
 import ProjectsList from "@/components/ui/project-list";
 import ErrorImage from "@/public/assets/images/error.webp";
@@ -15,45 +15,62 @@ interface SearchProjectsProps {
 }
 
 export default function SearchProjects({ searchKey }: SearchProjectsProps) {
-  const { searchKey: globalSearchKey } = useSearchStore();
-  const [projects, setProjects] = useState<Record<ProjectId, ProjectRecord>>();
-  const [loading, setLoading] = useState(false);
+  const { searchKey: globalSearchKey, showInactive } = useSearchStore();
+  const { allProjects, allProjectsStatus, fetchAllProjects, searchProjects } =
+    useProjectsStore();
+
+  const [searchResults, setSearchResults] = useState<
+    Record<ProjectId, ProjectRecord> | undefined
+  >();
+  const [searchLoading, setSearchLoading] = useState(false);
 
   const activeSearchKey = searchKey || globalSearchKey;
-  const [debouncedSearchKey] = useDebounce(activeSearchKey, 500);
+  const [debouncedSearchKey] = useDebounce(activeSearchKey, 1500);
 
-  // use effect to fetch all projects if no search key is provided
+  // Ensure all projects are loaded (no-op if already fetched or loading)
   useEffect(() => {
     if (!debouncedSearchKey) {
-      setLoading(true);
-      fetchAllProjects()
-        .then((data) => {
-          setProjects(data);
-          console.log("projects data:" , data);
-        })
-        .catch((err) => {
-          throw new Error(err);
-        })
-        .finally(() => setLoading(false));
-
+      fetchAllProjects();
     }
-  }, [debouncedSearchKey]);
+  }, [debouncedSearchKey, fetchAllProjects]);
 
-  // use effect to fetch projects by keywords if search key is provided
+  // Fetch search results when keyword changes
   useEffect(() => {
-    if (debouncedSearchKey) {
-      setLoading(true);
-      searchProjects(debouncedSearchKey)
-        .then((data) => setProjects(data))
-        .catch((err) => {
-          throw new Error(err);
-        })
-        .finally(() => setLoading(false));
+    if (!debouncedSearchKey) {
+      setSearchResults(undefined);
+      return;
     }
-  }, [debouncedSearchKey]);
 
-  if (!projects) {
-    return loading ? (
+    setSearchLoading(true);
+    searchProjects(debouncedSearchKey)
+      .then((data) => setSearchResults(data))
+      .catch((err) => {
+        throw new Error(err);
+      })
+      .finally(() => setSearchLoading(false));
+  }, [debouncedSearchKey, searchProjects]);
+
+  // Determine which dataset to display
+  const baseProjects: Record<ProjectId, ProjectRecord> | undefined =
+    debouncedSearchKey ? searchResults : allProjects ?? undefined;
+
+  const isLoading = debouncedSearchKey
+    ? searchLoading
+    : allProjectsStatus === "loading";
+
+  const filteredProjects = useMemo(() => {
+    if (!baseProjects) return undefined;
+    if (showInactive) return baseProjects;
+
+    return Object.fromEntries(
+      Object.entries(baseProjects).filter(
+        ([_, project]) => project.profile?.phase !== "inactive",
+      ),
+    );
+  }, [baseProjects, showInactive]);
+
+  if (!filteredProjects) {
+    return isLoading ? (
       <div className="projects-list-skeleton mt-4 grid max-w-full grid-cols-1 place-items-center items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {Array.from({ length: 12 }).map((_, index) => (
           <ProjectSkeleton key={index} />
@@ -75,7 +92,7 @@ export default function SearchProjects({ searchKey }: SearchProjectsProps) {
 
   return (
     <>
-      <ProjectsList projects={Object.values(projects)} />
+      <ProjectsList projects={Object.values(filteredProjects)} />
     </>
   );
 }

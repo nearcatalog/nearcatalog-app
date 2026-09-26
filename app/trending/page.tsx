@@ -1,43 +1,47 @@
 import SectionHeading from "@/components/ui/section-heading";
-import Fire from "@/components/icons/fire";
 import { fetchHotProjects } from "@/lib/near-catalog";
 import { ProjectId, ProjectRecord } from "@/lib/types";
-import ProjectCard from "@/components/ui/project-card";
 import { Metadata } from "next";
+import TrendingList from "./_components/trending-list";
+import { BreadcrumbSchema } from "@/components/seo/json-ld";
+import { trendingCrumbs } from "@/lib/seo/breadcrumbs";
+import SearchImage from "@/public/assets/images/search.webp";
+import ImageWithFallback from "@/components/ImageWithFallback";
 
 export const metadata: Metadata = {
   title: "Trending Projects",
   description:
     "Discover the hottest and most popular projects in the NEAR ecosystem, based on usage and transactions.",
+  alternates: { canonical: "/trending" },
 };
 
-// ProjectsListProps
 export default async function TrendingProjects() {
     const projects: Record<ProjectId, ProjectRecord> = await fetchHotProjects() || {};
 
     return (
-        <section className="container mx-auto my-16 overflow-x-clip px-4">
-            <section id="hot-projects" className="container mx-auto bg-black">
-                
+        <section
+            id="trending-projects"
+            className="container mx-auto my-20 overflow-x-clip px-4"
+        >
+            <BreadcrumbSchema items={trendingCrumbs()} />
+            <h1 className="sr-only">Trending NEAR Protocol projects</h1>
+            <div className="relative flex flex-col items-center md:pt-0">
                 <SectionHeading
-                    title={
-                        <div className="flex items-center justify-center gap-4 mb-4">
-                            <Fire />
-                            <h1>Trending</h1>
-                            <Fire />
-                        </div>
-                    }
-                    // description="Take a look at the hottest projects in our ecosystem based on usage and transactions"
-                    description=""
+                    title="Trending Projects"
+                    description="Discover the hottest and most popular projects in the NEAR ecosystem"
                 />
-            </section>            
+                {/* <ImageWithFallback
+                    className="absolute right-1/2 top-0 z-0 h-[8.8125rem] w-[13.8125rem] -translate-y-1/3 translate-x-1/2 object-cover md:right-0 md:h-[13.875rem] md:w-[21.6875rem] md:translate-x-0"
+                    src={SearchImage}
+                    alt={"Trending Projects"}
+                    placeholder="blur"
+                    width={347}
+                    height={222}
+                /> */}
+            </div>
 
-            <div className="mt-25 max-w-full">
-                <div className="projects-list mt-4 grid max-w-full grid-cols-1 place-items-center items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {Object.values(projects).map((project) => (
-                        <ProjectCard key={project.slug} project={project} maxWidth />
-                    ))}
-                </div>
+            <div className="z-1 relative my-16">
+                <TrendingList projects={projects} />
             </div>
         </section>
     );

@@ -8,6 +8,8 @@ import Dragon from "@/components/ui/dragon/dragon";
 import Navbar from "@/components/ui/navbar";
 import site from "@/config/site";
 import SearchModal from "@/components/modals/search";
+import RouteChangeWatcher from "@/components/route-change-watcher";
+import { WebSiteSchema } from "@/components/seo/json-ld";
 // import Banner from "@/components/ui/banner/banner";
 
 // const manrope = Manrope({ subsets: ["latin"] });
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
     "NEAR Catalog is #1 ecosystem directory for NEAR Protocol, showcasing NEAR projects, teams, people and contributors.",
   metadataBase: new URL(BASE_URL),
   alternates: {
-    canonical: './'
+    canonical: '/'
   },
   keywords: [
     "NEAR",
@@ -114,10 +116,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
+        <WebSiteSchema />
       </head>
       <body className={` min-h-screen bg-black font-sans antialiased`}
       >
         <div className="bg-background relative flex min-h-screen flex-col">
+          <RouteChangeWatcher />
           <Navbar />
           <div className="flex-grow">{children}</div>
           <SearchModal />

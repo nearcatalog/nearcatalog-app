@@ -33,7 +33,7 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
 
   return (
     <>
-      <div className="projects-list mt-4 grid max-w-full grid-cols-1 place-items-center items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="projects-list mt-4 grid max-w-full grid-cols-1 place-items-center items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
         {displayedProjects.map((project) => (
           <ProjectCard key={project.slug} project={project} maxWidth />
         ))}

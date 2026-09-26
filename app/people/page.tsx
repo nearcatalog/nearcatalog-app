@@ -8,14 +8,20 @@ export const metadata: Metadata = {
   title: "People on NEAR Directory",
   description:
     "Connect with teams, members and organizations across the NEAR ecosystem",
+  alternates: { canonical: "/people" },
 };
 
 import PeopleDirectory from "@/components/people/people-directory";
-
-
+import { BreadcrumbSchema } from "@/components/seo/json-ld";
+import { peopleCrumbs } from "@/lib/seo/breadcrumbs";
 
 const fetchedPeople: Person[] = await fetchPeopleData();
 
 export default function PeoplePage() {
-    return <PeopleDirectory peopleData={fetchedPeople} />;
+    return (
+      <>
+        <BreadcrumbSchema items={peopleCrumbs()} />
+        <PeopleDirectory peopleData={fetchedPeople} />
+      </>
+    );
 }

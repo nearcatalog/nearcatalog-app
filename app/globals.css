@@ -3,18 +3,46 @@
 @tailwind utilities;
 
 :root {
-  --background: #000;
-  --text-color: #fff;
+  --background: #050505;
+  --text-color: #ffffff;
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
-  background: var(--background);
-  color: var(--text-color);
+  @apply overflow-x-hidden bg-[#050505] text-[#FFFFFF] antialiased;
+  background-image: radial-gradient(
+      circle at 50% 0%,
+      rgba(0, 255, 163, 0.08) 0%,
+      transparent 50%
+    ),
+    linear-gradient(to bottom, rgba(5, 5, 5, 0.8), rgba(5, 5, 5, 0.98)),
+    url("/nearcatalogbg1.webp");
+  background-size: cover;
+  background-position: center;
+  /* Removed background-attachment: fixed — causes full repaint on every scroll event */
   scroll-behavior: smooth;
   height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Enforce sharp cyber styling */
+.rounded-lg,
+.rounded-xl,
+.rounded-2xl {
+  border-radius: 4px !important;
+}
+
+.rounded-full {
+  border-radius: 0px !important;
+}
+
+.cyber-mono {
+  font-family: var(--font-mono), monospace;
 }
 
 a {
@@ -22,54 +50,221 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+.bg-hover-gradient {
+  transition:
+    border-color 0.25s ease-in-out,
+    box-shadow 0.25s ease-in-out;
+  border: 1px solid var(--border-default);
 }
 
-.bg-hover-gradient::before {
+.bg-hover-gradient:hover {
+  border-color: #00ffa3;
+  box-shadow:
+    0 0 10px rgba(0, 255, 163, 0.4),
+    inset 0 0 5px rgba(0, 255, 163, 0.1);
+}
+
+.bg-click-gradient:active {
+  border-color: #00ffa3;
+  background-color: rgba(0, 255, 163, 0.1);
+}
+
+.header-aurora {
   position: absolute;
-  content: "";
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
+  right: 0;
+  height: 700px;
+  background: radial-gradient(
+      circle at 20% 20%,
+      rgba(0, 255, 163, 0.2) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(0, 194, 255, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(139, 92, 246, 0.1) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(0, 255, 163, 0.1) 0%,
+      transparent 70%
+    );
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(60px);
+}
+.cyber-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: linear-gradient(
-    to right,
-    rgba(0, 236, 151, 0.4),
-    rgba(23, 217, 212, 0.4),
-    rgba(151, 71, 255, 0.4)
-  );
-  z-index: -1;
-  transition: opacity 0.3s ease-in-out;
-  opacity: 0;
-  border-radius: 9999px;
+      rgba(0, 255, 163, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(0, 255, 163, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: 1;
+}
+.cockpit-panel {
+  background: rgba(0, 255, 163, 0.06);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 255, 163, 0.2);
+  border-radius: 16px;
 }
 
-.bg-hover-gradient:hover::before {
-  opacity: 1;
+:root {
+  --primary: #00ffa3;
 }
 
-.bg-click-gradient::after {
+/* Tinh chỉnh Glow Card */
+.glow-card {
+  background: rgba(13, 17, 23, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+  /* Specific properties only — avoids watching all animatable properties */
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 0.25s ease;
+  z-index: 1;
+}
+
+.glow-card::before {
+  content: "";
   position: absolute;
-  content: "";
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-image: linear-gradient(
-    to right,
-    rgba(0, 236, 151, 0.7),
-    rgba(23, 217, 212, 0.7),
-    rgba(151, 71, 255, 0.7)
-  );
-  z-index: -1;
-  transition: opacity 0.3s ease-in-out;
+  inset: 0;
+  background-image: radial-gradient(var(--primary) 0.5px, transparent 0.5px);
+  background-size: 6px 6px;
   opacity: 0;
-  border-radius: 9999px;
+  transition: opacity 0.25s ease;
+  z-index: 0;
+  pointer-events: none;
 }
 
-.bg-click-gradient:active::after {
+.glow-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 120%,
+    rgba(0, 255, 163, 0.25) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  transform: translateY(20px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glow-card:hover {
+  will-change: transform;
+  border-color: rgba(0, 255, 163, 0.5) !important;
+  box-shadow:
+    0 15px 40px -10px rgba(0, 255, 163, 0.25),
+    inset 0 0 20px rgba(0, 255, 163, 0.05);
+  transform: translateY(-4px);
+  background: rgba(10, 20, 15, 0.6);
+}
+
+.glow-card:hover::before {
+  opacity: 0.08;
+}
+
+.glow-card:hover::after {
   opacity: 1;
+  transform: translateY(0);
+}
+
+.group\/card:hover h3 {
+  color: var(--primary);
+  text-shadow: 0 0 12px rgba(0, 255, 163, 0.4);
+  transition: all 0.3s ease;
+}
+
+.ambient-backdrop {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  opacity: 0.15;
+  filter: blur(60px);
+  transform: scale(3);
+  pointer-events: none;
+  object-fit: cover;
+  width: 140%;
+  height: 140%;
+}
+
+.squircle-icon {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M0 50C0 4.47715 4.47715 0 50 0C95.5228 0 100 4.47715 100 50C100 95.5228 95.5228 100 50 100C4.47715 100 0 95.5228 0 50Z' /%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  border-radius: 24%;
+}
+
+.pulsing-border-active {
+  animation: pulse-border 4s infinite ease-in-out;
+}
+@keyframes pulse-border {
+  0%,
+  100% {
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+  50% {
+    border-color: rgba(0, 255, 163, 0.2);
+  }
+}
+
+.secondary-btn {
+  @apply border border-secondary bg-transparent px-5 py-2 font-mono text-[10px] font-bold text-secondary transition-all hover:bg-secondary hover:text-black;
+  border-radius: 8px;
+}
+.search-input {
+  @apply border border-white/10 bg-white/5 py-2 pl-8 pr-4 font-mono text-xs text-white transition-all focus:border-primary focus:ring-0;
+  border-radius: 8px;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.carousel-item {
+  @apply flex-none snap-start;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .carousel-item {
+    width: calc(50% - 12px);
+  }
+}
+@media (min-width: 1024px) {
+  .carousel-item {
+    width: calc(25% - 18px);
+  }
+}
+.nav-arrow-modular {
+  @apply flex h-8 w-10 items-center justify-center border border-[#333] bg-black/60 text-white/40 backdrop-blur-md transition-all;
+  clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+}
+.nav-arrow-modular:hover {
+  @apply border-primary text-primary shadow-[0_0_15px_rgba(0,255,163,0.4)];
 }
 
 @keyframes subtle-bounce {

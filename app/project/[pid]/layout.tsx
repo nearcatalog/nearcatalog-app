@@ -54,7 +54,7 @@ export async function generateMetadata({
   const imageUrl = project.profile.image?.url || "https://nearcatalog.xyz/favicon.ico";
 
   return {
-    title: `${project.profile.name} - NEAR Project`,
+    title: `${project.profile.name}`,
     description: `${project.profile.tagline} - Discover ${project.profile.name} on NEAR Catalog, the #1 NEAR ecosystem directory.`,
     keywords: [project.profile.name, ...projectTags, "NEAR", "NEAR Project"],
     openGraph: {

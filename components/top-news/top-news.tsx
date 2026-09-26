@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { NewsType } from "@/lib/types";
 
 function NewsItem({ news }: { news: NewsType }) {
@@ -9,19 +9,20 @@ function NewsItem({ news }: { news: NewsType }) {
             style={{ userSelect: "none" }}
             rel="noindex noreferrer nofollow"
             href={`${news.url}`}
-            className="top-news w-full cursor-pointer overflow-hidden rounded-lg px-1 py-2 transition-all duration-300 ease-in-out md:py-3"
+            className="group flex w-full cursor-pointer items-center justify-between border border-accent-primary/20 bg-accent-primary/5 px-4 py-2 md:px-6 md:py-2.5 transition-all duration-300 hover:border-accent-primary hover:bg-accent-primary/10 hover:shadow-[0_0_15px_rgba(0,255,163,0.15)] rounded-none animate-in fade-in duration-500"
         >
-            <div className="news-item w-full flex items-start">
-                <div className="flex-shrink-0 mr-2">
-                    <i className="bi bi-megaphone-fill text-lg text-red-500"></i>
-                </div>
-                <div className="flex-1 text-left">
-                    <p className="block w-full">{news.title}
-                    {news.url && (
-                        <i className="bi bi-box-arrow-up-right ml-1 text-xs text-gray-400"></i>
-                    )}
-                    </p>
-                </div>
+            <div className="flex items-center gap-3 md:gap-4 pr-16 md:pr-24 overflow-hidden">
+                <span className="flex h-1.5 w-1.5 relative flex-shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-primary opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent-primary"></span>
+                </span>
+                <span className="hidden md:inline-block text-[9px] font-bold tracking-[0.2em] text-accent-primary font-mono uppercase flex-shrink-0">LATEST_INTEL</span>
+                <div className="hidden md:block h-3 w-[1px] bg-white/20 flex-shrink-0"></div>
+                <p className="font-heading text-xs md:text-sm font-semibold text-white group-hover:text-accent-primary transition-colors ">{news.title}</p>
+            </div>
+            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0 absolute right-16 md:right-24">
+                <span className="text-[10px] font-mono font-bold text-accent-primary uppercase tracking-widest hidden md:inline-block">READ</span>
+                <i className="bi bi-arrow-right text-accent-primary"></i>
             </div>
         </a>
     );
@@ -38,19 +39,27 @@ export default function TopNews({ news }: { news: Record<string, NewsType> | nul
     const projectKeys = news ? Object.keys(news) : [];
     
     // Navigation functions need to be defined even if news is empty
-    const goToNext = () => {
+    const goToNext = useCallback((e?: React.MouseEvent) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         if (projectKeys.length === 0) return;
         setCurrentIndex((prevIndex) =>
             prevIndex === projectKeys.length - 1 ? 0 : prevIndex + 1
         );
-    };
+    }, [projectKeys.length]);
 
-    const goToPrev = () => {
+    const goToPrev = useCallback((e?: React.MouseEvent) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         if (projectKeys.length === 0) return;
         setCurrentIndex((prevIndex) =>
             prevIndex === 0 ? projectKeys.length - 1 : prevIndex - 1
         );
-    };
+    }, [projectKeys.length]);
 
     // Auto-transition effect must be defined before any returns
     useEffect(() => {
@@ -74,7 +83,7 @@ export default function TopNews({ news }: { news: Record<string, NewsType> | nul
                 intervalRef.current = null;
             }
         };
-    }, [isHovered, isTouched, projectKeys.length]);
+    }, [isHovered, isTouched, projectKeys.length, goToNext]);
 
     // Early return after all hooks are called
     if (!news || projectKeys.length === 0) return null;
@@ -82,49 +91,38 @@ export default function TopNews({ news }: { news: Record<string, NewsType> | nul
     return (
         <div
             id="top-news-carousel"
-            className="relative container z-20 flex justify-center my-8"
+            className="relative z-20 flex justify-center w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 mb-8 mt-2 md:mb-16 md:mt-4"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onTouchStart={() => setIsTouched(true)}
             onTouchEnd={() => setIsTouched(false)}
             ref={containerRef}
         >
-            <div className="relative py-2 px-2 w-full md:w-3/4 lg:w-1/2 xl:ml-[160px]">
+            <div className="relative w-full">
                 {/* Current news item */}
-                <div className="transition-opacity duration-300 mb-5 relative">
+                <div className="transition-opacity duration-300 relative">
                     <NewsItem news={news[projectKeys[currentIndex]]} key={projectKeys[currentIndex]} />
                 </div>
 
                 {/* Pagination indicators with navigation buttons */}
-                <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center gap-1 pb-1">
-                    <button
-                        onClick={goToPrev}
-                        className="bg-black/30 hover:bg-black/50 text-white rounded-full p-1"
-                        aria-label="Previous news"
-                    >
-                        <i className="bi bi-chevron-left text-xs"></i>
-                    </button>
+                <div className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
+                    <div className="pointer-events-auto flex items-center bg-black/50 backdrop-blur-md border border-white/10 rounded-sm">
+                        <button
+                            onClick={goToPrev}
+                            className="text-white/40 hover:text-accent-primary hover:bg-white/5 transition-all px-2 md:px-3 py-1.5 md:py-2 border-r border-white/10"
+                            aria-label="Previous news"
+                        >
+                            <i className="bi bi-chevron-left text-xs md:text-sm"></i>
+                        </button>
 
-                    <div className="flex justify-center gap-0.5 opacity-60">
-                        {projectKeys.map((_, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => setCurrentIndex(idx)}
-                                className={`h-1 rounded-full transition-all ${
-                                    idx === currentIndex ? 'bg-white/80 w-2.5' : 'bg-gray-500/40 w-1.5'
-                                }`}
-                                aria-label={`Go to news item ${idx + 1}`}
-                            ></button>
-                        ))}
+                        <button
+                            onClick={goToNext}
+                            className="text-white/40 hover:text-accent-primary hover:bg-white/5 transition-all px-2 md:px-3 py-1.5 md:py-2"
+                            aria-label="Next news"
+                        >
+                            <i className="bi bi-chevron-right text-xs md:text-sm"></i>
+                        </button>
                     </div>
-
-                    <button
-                        onClick={goToNext}
-                        className="bg-black/30 hover:bg-black/50 text-white rounded-full p-1"
-                        aria-label="Next news"
-                    >
-                        <i className="bi bi-chevron-right text-xs"></i>
-                    </button>
                 </div>
             </div>
         </div>

@@ -97,48 +97,50 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
                 description="Connect with teams, members and organizations across the NEAR ecosystem"
             />
 
-            <div className="mb-8 mt-6 flex flex-col gap-4 sm:flex-row">
-                {/* Search input */}
-                <div className="relative flex-grow">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                        <i className="bi bi-search text-[#80E9E5]"></i>
+            <div className="mb-12 mt-8 flex flex-col gap-6">
+                {/* Search & Filter Row */}
+                <div className="flex flex-col gap-4 lg:flex-row">
+                    <div className="relative flex-grow group">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                            <i className="bi bi-search text-accent-primary group-focus-within:drop-shadow-[0_0_8px_rgba(0,255,163,0.5)]"></i>
+                        </div>
+                        <input
+                            type="text"
+                            className="block w-full border border-border-default bg-bg-surface p-4 pl-12 text-sm text-white cyber-mono focus:border-accent-primary focus:outline-none transition-all placeholder:text-text-secondary/50 uppercase tracking-widest"
+                            placeholder="SEARCH PEOPLE..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
                     </div>
-                    <input
-                        type="text"
-                        className="block w-full rounded-full border-2 border-[#80E9E5] bg-black p-4 pl-10 text-sm text-white focus:border-[#80E9E5] focus:outline-none"
-                        placeholder="Search by name, title, description, or team..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
+
+                    <div className="relative w-full lg:w-72 group">
+                        <select
+                            className="block w-full appearance-none border border-border-default bg-bg-surface p-4 pl-5 pr-12 text-[10px] font-black uppercase tracking-widest text-white cyber-mono focus:border-accent-primary focus:outline-none transition-all"
+                            value={filterOrganization}
+                            onChange={(e) => setFilterOrganization(e.target.value)}
+                        >
+                            {organizations.map(org => (
+                                <option key={org} value={org} className="bg-bg-base text-white">{org.toUpperCase()}</option>
+                            ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4">
+                            <i className="bi bi-chevron-down text-accent-primary group-focus-within:drop-shadow-[0_0_8px_rgba(0,255,163,0.5)]"></i>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Organization filter dropdown */}
-                <div className="relative w-full sm:w-64">
-                    <select
-                        className="block w-full appearance-none rounded-full border-2 border-[#80E9E5] bg-black p-4 pl-5 pr-10 text-sm text-white focus:border-[#80E9E5] focus:outline-none"
-                        value={filterOrganization}
-                        onChange={(e) => setFilterOrganization(e.target.value)}
+                {/* Submission Action */}
+                <div className="flex items-center justify-center">
+                    <a
+                        href="https://submit.nearcatalog.xyz/people-on-near/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-3 border border-accent-primary bg-accent-primary/10 px-8 py-3 text-sm font-black uppercase tracking-[0.25em] text-accent-primary transition-all hover:bg-accent-primary hover:text-black hover:shadow-[0_0_20px_rgba(0,255,163,0.4)] cyber-mono"
                     >
-                        {organizations.map(org => (
-                            <option key={org} value={org}>{org}</option>
-                        ))}
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4">
-                        <i className="bi bi-chevron-down text-[#80E9E5]"></i>
-                    </div>
+                        <i className="bi bi-plus-lg"></i>
+                        NEW SUBMISSION
+                    </a>
                 </div>
-            </div>
-
-            <div className="mb-8 flex items-center justify-center">
-                <a
-                    href="https://submit.nearcatalog.org/people-on-near/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#80E9E5] to-[#52DCD4] px-4 py-2 text-sm font-medium text-black transition-transform hover:scale-105"
-                >
-                    <i className="bi bi-plus-circle mr-2"></i>
-                    New Submission
-                </a>
             </div>
 
             {/* People cards grid */}
@@ -146,103 +148,90 @@ function PeopleDirectory({ peopleData }: { peopleData: Person[] }) {
                 {filteredPeople.map((person, index) => (
                     <div
                         key={index}
-                        className="flex flex-col rounded-lg border-2 border-[#80E9E5] bg-[#1b1d2a] p-6 transition-all hover:scale-[1.01]"
+                        className="group flex flex-col border border-border-default bg-bg-surface p-6 transition-all duration-300 hover:border-accent-primary hover:shadow-[0_0_15px_rgba(0,255,163,0.15)]"
                     >
-                        <div className="mb-4 flex items-center gap-3">
+                        <div className="mb-6 flex items-center gap-4">
                             {/* Avatar with fallback */}
-                            <div className="relative h-16 w-16 overflow-hidden rounded-full">
+                            <div className="relative h-20 w-20 overflow-hidden rounded-2xl border border-border-default bg-bg-base shrink-0 shadow-lg">
                                 {person.avatar ? (
                                     <Image
                                         src={person.avatar}
                                         alt={`${person.name}'s avatar`}
                                         className="h-full w-full object-cover"
-                                        width={64}
-                                        height={64}
+                                        width={80}
+                                        height={80}
                                         unoptimized
                                     />
                                 ) : (
-                                    <div className="flex h-full w-full items-center justify-center bg-[#2a2d3e] text-[#80E9E5]">
-                                        <span className="text-2xl font-bold">
+                                    <div className="flex h-full w-full items-center justify-center bg-bg-surface text-accent-primary">
+                                        <span className="text-3xl font-black cyber-mono">
                                             {person.name.charAt(0).toUpperCase()}
                                         </span>
                                     </div>
                                 )}
                             </div>
-                            <div>
-                                <h3 className="text-xl font-bold text-white">{person.name}</h3>
-                                <p className="text-lg font-medium text-[#80E9E5]">{person.jobTitle}</p>
+                            <div className="overflow-hidden flex flex-col gap-1">
+                                <h3 className="text-lg font-bold tracking-tight text-white group-hover:text-accent-primary transition-colors leading-snug">{person.name}</h3>
+                                <p className="text-[10px] font-bold text-accent-primary cyber-mono uppercase tracking-widest truncate mt-0.5 opacity-70">{person.jobTitle}</p>
                             </div>
                         </div>
-                        {
-                            person.description && <p className="mb-1 text-sm text-gray-300">{person.description}</p>
-                        }
-                        {
-                            person.team && <p className="mb-1 text-sm text-gray-300">Team: {person.team}</p>
-                        }
-                        {/* Format organizations display */}
-                        <p className="mb-1 text-sm text-gray-300">
-                            Organization{person.organization?.includes(',') ? 's' : ''}: {person.organization ? formatOrganizations(person.organization) : 'N/A'}
-                        </p>
-                        {
-                            person.preferredContact && <p className="mb-1 text-sm text-gray-300">Preferred Contact: {person.preferredContact}</p>
-                        }
+                        <div className="space-y-1.5 cyber-mono text-[10px] uppercase tracking-widest text-text-secondary">
+                            {person.description && <p className="leading-relaxed">{person.description}</p>}
+                            {person.team && <p className="text-white">Team: <span className="text-accent-primary">{person.team}</span></p>}
+                            <p>
+                                Org{person.organization?.includes(',') ? 's' : ''}: <span className="text-white">{person.organization ? formatOrganizations(person.organization) : 'N/A'}</span>
+                            </p>
+                            {person.preferredContact && <p>Contact: <span className="text-white">{person.preferredContact}</span></p>}
+                        </div>
 
-                        <div className="mt-4 flex flex-col gap-2">
+                        <div className="mt-8 pt-6 border-t border-border-default flex flex-wrap gap-4">
                             {person.email && (
                                 <a
                                     href={`mailto:${person.email}`}
-                                    className="flex items-center gap-2 text-white hover:text-[#80E9E5]"
+                                    className="text-text-secondary hover:text-accent-primary transition-colors"
+                                    title={person.email}
                                 >
-                                    <i className="bi bi-envelope text-[#80E9E5]"></i>
-                                    <span className="text-sm">{person.email}</span>
+                                    <i className="bi bi-envelope text-lg"></i>
                                 </a>
                             )}
-
                             {person.telegram && (
                                 <a
                                     href={person.telegram}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 text-white hover:text-[#80E9E5]"
+                                    className="text-text-secondary hover:text-accent-primary transition-colors"
                                 >
-                                    <i className="bi bi-telegram text-[#80E9E5]"></i>
-                                    <span className="text-sm">Telegram</span>
+                                    <i className="bi bi-telegram text-lg"></i>
                                 </a>
                             )}
-
                             {person.twitter && (
                                 <a
                                     href={person.twitter}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 text-white hover:text-[#80E9E5]"
+                                    className="text-text-secondary hover:text-accent-primary transition-colors"
                                 >
-                                    <i className="bi bi-twitter-x text-[#80E9E5]"></i>
-                                    <span className="text-sm">Twitter</span>
+                                    <i className="bi bi-twitter-x text-lg"></i>
                                 </a>
                             )}
-
-                            {person.discord && (
+                             {person.discord && (
                                 <a
                                     href={person.discord}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 text-white hover:text-[#80E9E5]"
+                                    className="text-text-secondary hover:text-accent-primary transition-colors"
                                 >
-                                    <i className="bi bi-discord text-[#80E9E5]"></i>
-                                    <span className="text-sm">Discord</span>
+                                    <i className="bi bi-discord text-lg"></i>
                                 </a>
                             )}
-
-                            {person.website && (
+                             {person.website && (
                                 <a
                                     href={person.website}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 text-white hover:text-[#80E9E5]"
+                                    className="text-text-secondary hover:text-accent-primary transition-colors"
                                 >
-                                    <i className="bi bi-globe text-[#80E9E5]"></i>
-                                    <span className="text-sm">Website</span>
+                                    <i className="bi bi-globe text-lg"></i>
                                 </a>
                             )}
                         </div>

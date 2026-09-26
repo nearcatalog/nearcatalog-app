@@ -5,7 +5,7 @@ async function fetchCoinGeckoData(platformId: string) {
     `https://api.coingecko.com/api/v3/coins/${platformId}`,
     {
       next: {
-        revalidate: 30,
+        revalidate: 3600,
       },
     },
   );
@@ -48,16 +48,15 @@ export default async function PriceInfo({
   } catch (error) {
     console.log(error);
     return (
-      <div className="rounded-lg bg-[#1b1d2a] p-4">
-
-      <h3 className="text-xl font-bold">{name} Token</h3>
+      <div className="rounded-sm border border-border-default bg-bg-surface p-4">
+      <h3 className="text-sm text-text-secondary uppercase tracking-widest font-bold mb-3">{name} Token</h3>
       <div className="flex flex-col">
         <div className="flex flex-col gap-2 py-2">
           <div className="flex items-center gap-2 mt-2">
             <Image
               alt={name}
               src={tokenInfo.icon.small}
-              className="rounded-full object-cover"
+              className="rounded-md object-cover border border-border-default/50 shadow-sm"
               width={32}
               height={32}
             />
@@ -75,8 +74,9 @@ export default async function PriceInfo({
           style={{ color: "inherit" }}
           rel="nofollow"
           href={`https://www.coingecko.com/en/coins/${tokenInfo.platform.coingecko}`}
+          className="flex items-center gap-1 hover:text-accent-primary transition-colors inline-flex opacity-70 hover:opacity-100"
         >
-          View detail on CoinGecko ↗
+          View detail on CoinGecko <i className="bi bi-box-arrow-up-right text-[10px]"></i>
         </a>
         </small>
       </div>
@@ -105,24 +105,24 @@ export default async function PriceInfo({
       : "text-green-500";
 
   return (
-    <div className="rounded-lg bg-[#1b1d2a] p-4">
-      <h3 className="text-xl font-bold">{name} Token</h3>
+    <div className="rounded-sm border border-border-default bg-bg-surface p-4">
+      <h3 className="text-sm text-text-secondary uppercase tracking-widest font-bold mb-3">{name} Token</h3>
       <div className="flex flex-col">
         <div className="flex flex-col gap-2 p-2">
           <div className="flex items-center gap-2">
             <Image
               alt={name}
               src={tokenInfo.icon.small}
-              className="rounded-full object-cover"
-              width={32}
-              height={32}
+              className="rounded-md object-cover border border-border-default/50"
+              width={24}
+              height={24}
             />
             <span>
-              <b>{tokenInfo.symbol}</b>
-              <small>/usd</small>
+              <b className="font-bold">{tokenInfo.symbol}</b>
+              <small className="text-text-secondary">/usd</small>
             </span>
           </div>
-            <h4 className="text-3xl font-medium">
+            <h4 className="text-3xl font-medium cyber-mono text-text-primary">
             ${
               current_price?.usd !== undefined
               ? (() => {
@@ -163,10 +163,10 @@ export default async function PriceInfo({
               value: formatLargeNumber(circulating_supply),
             },
           ].map((item) => (
-            <div className="flex flex-col p-1" key={item.label}>
-              <p className="text-sm">{item.label}</p>
+            <div className="flex flex-col p-1 w-1/3 min-w-[120px]" key={item.label}>
+              <p className="text-xs text-text-secondary uppercase">{item.label}</p>
               <p
-                className={`${item.label === "ATH" ? "text-green-500" : undefined} text-sm font-bold`}
+                className={`${item.label === "ATH" ? "text-accent-primary" : "text-text-primary"} text-sm font-bold cyber-mono`}
               >
                 {item.value}
               </p>
@@ -180,8 +180,9 @@ export default async function PriceInfo({
           style={{ color: "inherit" }}
           rel="nofollow"
           href={`https://www.coingecko.com/en/coins/${tokenInfo.platform.coingecko}`}
+          className="flex items-center gap-1 hover:text-accent-primary transition-colors inline-flex opacity-70 hover:opacity-100"
         >
-          View on CoinGecko ↗
+          View on CoinGecko <i className="bi bi-box-arrow-up-right text-[10px]"></i>
         </a>
       </small>
     </div>

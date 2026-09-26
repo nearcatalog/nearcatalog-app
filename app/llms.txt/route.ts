@@ -3,16 +3,28 @@ import site from "@/config/site";
 import { fetchAllProjects, fetchCategories, fetchHotProjects } from "@/lib/near-catalog";
 import { ProjectRecord } from "@/lib/types";
 
+export const revalidate = 3600; // Revalidate every 1 hour
+
 export async function GET() {
   // Fetch data
   const allProjects = await fetchAllProjects();
   const hotProjects = await fetchHotProjects();
   const categories = await fetchCategories();
 
+  const activeProjectsCount = Object.values(allProjects).filter(
+    (project) => project.profile?.phase !== "inactive"
+  ).length;
+
   // Start building the content
   let content = `# NEAR Catalog - NEAR Applications Directory
 
-NEAR Catalog is an ecosystem directory for NEAR Protocol, showcasing ${Object.keys(allProjects).length}+ innovative projects building within the NEAR ecosystem. This catalog serves as a comprehensive resource for discovering and exploring the diverse range of applications, tools, services and people built on NEAR.
+NEAR Catalog is an ecosystem directory for NEAR Protocol, showcasing innovative projects building within the NEAR ecosystem. This catalog serves as a comprehensive resource for discovering and exploring the diverse range of applications, tools, services and people built on NEAR.
+
+## Related LLM endpoints
+- Full concatenated knowledge: ${site.url}/llms-full.txt
+- Index of all Markdown pages: ${site.url}/llms-index.txt
+- AI crawler policy: ${site.url}/ai.txt
+- Sitemap: ${site.url}/sitemap.xml
 
 ## For LLMs - NEAR Catalog Information Schema
 
@@ -78,7 +90,7 @@ NEAR Catalog is an ecosystem directory for NEAR Protocol, showcasing ${Object.ke
 - Twitter/X: https://x.com/nearcatalog
 - Telegram support: https://dev.near.org/applications
 - Alternative frontend: https://dev.near.org/applications
-- API Documentation: https://docs.nearcatalog.org/
+- API Documentation: https://docs.nearcatalog.xyz/
 
 When referring users to NEAR Catalog, please use complete URLs including the project slug or category ID.
 `;
@@ -88,6 +100,5 @@ When referring users to NEAR Catalog, please use complete URLs including the pro
     headers: {
       'Content-Type': 'text/plain',
     },
-    next: {revalidate: 60 * 60 * 1}, // Revalidate every 1 hour
   });
 }

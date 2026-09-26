@@ -2,6 +2,28 @@ import { ProjectCategory, ProjectId, ProjectRecord } from "@/lib/types";
 import { Person } from "@/lib/types";
 export const NEAR_CATALOG_API = process.env.NEXT_PUBLIC_NEAR_CATALOG_API;
 
+function normalizeProject(project: ProjectRecord): ProjectRecord {
+  if (project?.profile?.image?.url) {
+    project.profile.image.url = project.profile.image.url.replace(
+      "indexer.nearcatalog.org",
+      "indexer.nearcatalog.xyz"
+    );
+  }
+  return project;
+}
+
+function normalizeProjectsMap(
+  projects: Record<ProjectId, ProjectRecord>
+): Record<ProjectId, ProjectRecord> {
+  if (!projects) return projects;
+  for (const key in projects) {
+    if (projects[key]) {
+      normalizeProject(projects[key]);
+    }
+  }
+  return projects;
+}
+
 /**
  * Fetches all projects
  */
@@ -9,7 +31,7 @@ export async function fetchAllProjects(): Promise<
   Record<ProjectId, ProjectRecord>
 > {
   const response = await fetch(`${NEAR_CATALOG_API}/projects`, {
-    next: { revalidate: 30 },
+    next: { revalidate: 3600 },
   });
   if (!response.ok) {
     throw new Error(
@@ -17,7 +39,7 @@ export async function fetchAllProjects(): Promise<
     );
   }
   const rs = await response.json();
-  return await rs;
+  return normalizeProjectsMap(rs);
 }
 
 /**
@@ -27,7 +49,7 @@ export async function fetchNewProjects(): Promise<
   Record<ProjectId, ProjectRecord>
 > {
   const response = await fetch(`${NEAR_CATALOG_API}/new-projects`, {
-    next: { revalidate: 30 },
+    next: { revalidate: 3600 },
   });
   if (!response.ok) {
     throw new Error(
@@ -35,16 +57,16 @@ export async function fetchNewProjects(): Promise<
     );
   }
   const rs = await response.json();
-  return await rs;
+  return normalizeProjectsMap(rs);
 }
 
 
 /**
  * fetch all categories
  */
-export async function fetchCategories(): Promise<{String:String}> {
+export async function fetchCategories(): Promise<Record<string, string>> {
   const response = await fetch(`${NEAR_CATALOG_API}/categories`, {
-    next: { revalidate: 30 },
+    next: { revalidate: 3600 },
   });
   if (!response.ok) {
     throw new Error(
@@ -62,14 +84,15 @@ export async function fetchCategories(): Promise<{String:String}> {
  */
 export async function fetchProject(pid: string): Promise<ProjectRecord> {
   const response = await fetch(`${NEAR_CATALOG_API}/project?pid=${pid}`, {
-    next: { revalidate: 300 },
+    next: { revalidate: 3600 },
   });
   if (!response.ok) {
     throw new Error(
       "Request to Near Catalog API failed with status: " + response.status,
     );
   }
-  return await response.json();
+  const rs = await response.json();
+  return normalizeProject(rs);
 }
 
 /**
@@ -79,14 +102,15 @@ export async function searchProjects(
   keywords: string,
 ): Promise<Record<ProjectId, ProjectRecord>> {
   const response = await fetch(`${NEAR_CATALOG_API}/search?kw=${keywords}`, {
-    next: { revalidate: 300 },
+    next: { revalidate: 3600 },
   });
   if (!response.ok) {
     throw new Error(
       "Request to Near Catalog API failed with status: " + response.status,
     );
   }
-  return await response.json();
+  const rs = await response.json();
+  return normalizeProjectsMap(rs);
 }
 
 /**
@@ -98,7 +122,7 @@ export async function fetchRelatedProjects(
   const response = await fetch(
     `${NEAR_CATALOG_API}/related-projects?pid=${pid}`,
     {
-      next: { revalidate: 300 },
+      next: { revalidate: 3600 },
     },
   );
   if (!response.ok) {
@@ -106,7 +130,8 @@ export async function fetchRelatedProjects(
       "Request to Near Catalog API failed with status: " + response.status,
     );
   }
-  return await response.json();
+  const rs = await response.json();
+  return normalizeProjectsMap(rs);
 }
 
 /**
@@ -118,7 +143,7 @@ export async function fetchProjectCategory(
   const response = await fetch(
     `${NEAR_CATALOG_API}/projects-by-category?cid=${cid}`,
     {
-      next: { revalidate: 30 },
+      next: { revalidate: 3600 },
     },
   );
   let rs =  await response.json();
@@ -128,7 +153,10 @@ export async function fetchProjectCategory(
       "Request to Near Catalog API failed with status: " + response.status,
     );
   }
-  return await rs;
+  if (rs && rs.data) {
+    rs.data = normalizeProjectsMap(rs.data);
+  }
+  return rs;
 }
 
 /**
@@ -148,7 +176,7 @@ export async function fetchShortNews(): Promise<
   Record<string, { title: string; description: string; url: string }> | null
 > {
   const response = await fetch(`${NEAR_CATALOG_API}/short-news`, {
-    next: { revalidate: 1800 },
+    next: { revalidate: 3600 },
   });
   if (response.ok) {
     const rs = await response.json();
@@ -171,5 +199,11 @@ export async function fetchPeopleData(): Promise<Person[]> {
     throw new Error(`Failed to fetch people data: ${response.status}`);
   }
   
-  return response.json();
+  const people = await response.json() as Person[];
+  return people.map(p => {
+    if (p.avatar) {
+      p.avatar = p.avatar.replace("indexer.nearcatalog.org", "indexer.nearcatalog.xyz");
+    }
+    return p;
+  });
 }

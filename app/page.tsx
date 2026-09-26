@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import HomeHero from "@/components/home/hero";
 // import EcosystemSupport from "@/components/home/ecosystem";
 import HotProjects from "@/components/home/hot-projects";
@@ -10,7 +11,9 @@ export default function Home() {
     <main className="relative flex flex-col items-center">
       <HomeHero />
       <HotProjects />
-      <NewsHomeSection/>
+      <Suspense fallback={<div className="h-20 w-full" />}>
+        <NewsHomeSection />
+      </Suspense>
       {/* <EcosystemSupport /> */}
       <Discover />
     </main>

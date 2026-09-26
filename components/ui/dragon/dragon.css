@@ -3,7 +3,6 @@
   margin: 0 auto;
 }
 
-
 .ag-dragon-fly-block {
   height: 100%;
   background-size: cover;
@@ -14,23 +13,22 @@
   height: 212px;
   width: 300px;
 
-  -webkit-animation: an-dragon-fly-right 20s ease-in infinite;
-  -moz-animation: an-dragon-fly-right 20s ease-in infinite;
-  -o-animation: an-dragon-fly-right 20s ease-in infinite;
   animation: an-dragon-fly-right 20s ease-in infinite;
 
   position: fixed;
-  bottom: 0%;
+  bottom: 0;
   left: 0;
-  /* scale:0.5; */
-  scale: 0.2;
   cursor: pointer;
+  will-change: transform;
+  contain: layout paint style;
+  pointer-events: auto;
 }
 
 .ag-dragon:before {
   content: "";
-  /* background: url("https://indexer.nearcatalog.org/wp-content/uploads/2025/08/JAMBO-1.png") no-repeat scroll 0 0; */
-  background: url("https://indexer.nearcatalog.org/wp-content/uploads/2025/08/dragon.png") no-repeat scroll 0 0;
+  /* background: url("https://indexer.nearcatalog.xyz/wp-content/uploads/2025/08/JAMBO-1.png") no-repeat scroll 0 0; */
+  background: url("https://indexer.nearcatalog.xyz/wp-content/uploads/2025/08/dragon.png")
+    no-repeat scroll 0 0;
   background-size: 100% auto;
 
   position: absolute;
@@ -45,51 +43,15 @@
   -o-transform: scaleX(-1);
   transform: scaleX(-1);
 
-  -webkit-animation: an-dragon-fly 1s steps(9) infinite;
-  -moz-animation: an-dragon-fly 1s steps(9) infinite;
-  -o-animation: an-dragon-fly 1s steps(9) infinite;
   animation: an-dragon-fly 1s steps(9) infinite;
 }
 
-@-webkit-keyframes an-dragon-fly-right {
-  to {
-    top: 5%;
-    left: 150%;
-
-    -webkit-transform: scale(0.4);
-    transform: scale(0.4);
-  }
-}
-
-@-moz-keyframes an-dragon-fly-right {
-  to {
-    top: 5%;
-    left: 150%;
-
-    -moz-transform: scale(0.4);
-    transform: scale(0.4);
-  }
-}
-
-@-o-keyframes an-dragon-fly-right {
-  to {
-    top: 5%;
-    left: 150%;
-
-    -o-transform: scale(0.4);
-    transform: scale(0.4);
-  }
-}
-
 @keyframes an-dragon-fly-right {
-  to {
-    top: 5%;
-    left: 150%;
-
-    -webkit-transform: scale(0.4);
-    -moz-transform: scale(0.4);
-    -o-transform: scale(0.4);
-    transform: scale(0.4);
+  0% {
+    transform: translate3d(-10vw, 0, 0) scale(0.2);
+  }
+  100% {
+    transform: translate3d(120vw, -80vh, 0) scale(0.4);
   }
 }
 
@@ -225,28 +187,34 @@
 
 /* /dragon small */
 
-
 @media only screen and (max-width: 767px) {
   .ag-format-container {
     width: 96%;
   }
-
 }
 
-@media only screen and (max-width: 639px) {}
+@media only screen and (max-width: 639px) {
+}
 
-@media only screen and (max-width: 479px) {}
+@media only screen and (max-width: 479px) {
+}
 
 @media (min-width: 768px) and (max-width: 979px) {
   .ag-format-container {
     width: 750px;
   }
-
 }
 
 @media (min-width: 980px) and (max-width: 1161px) {
   .ag-format-container {
     width: 960px;
   }
+}
 
+@media (prefers-reduced-motion: reduce) {
+  .ag-dragon,
+  .ag-dragon:before {
+    animation: none !important;
+    display: none;
+  }
 }

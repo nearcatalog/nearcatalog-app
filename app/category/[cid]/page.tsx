@@ -1,10 +1,14 @@
 import SectionHeading from "@/components/ui/section-heading";
-import { fetchCategories, fetchProjectCategory } from "@/lib/near-catalog";
+import { fetchAllProjects, fetchCategories, fetchProjectCategory } from "@/lib/near-catalog";
 import { ProjectCategory } from "@/lib/types";
 import SearchImage from "@/public/assets/images/search.webp";
 import ErrorImage from "@/public/assets/images/error.webp";
 import Image from "next/image";
 import CategoryProjectsList from "./_components/category-projects-list";
+import { BreadcrumbSchema, FaqPageSchema, SpeakableSchema } from "@/components/seo/json-ld";
+import FaqSection from "@/components/seo/faq-section";
+import { categoryFaqs } from "@/lib/seo/faq";
+import { categoryCrumbs } from "@/lib/seo/breadcrumbs";
 
 interface CategoryPageProps {
   params: {
@@ -63,11 +67,37 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const categoryData: ProjectCategory = await fetchProjectCategory(cid);
   const fetchCats = await fetchCategories();
+  const allProjects = await fetchAllProjects();
+
+  const activeProjects = Object.values(allProjects).filter(
+    (project) => project.profile?.phase?.toLowerCase() !== "inactive"
+  );
+
+  const activeTags: Record<string, string> = {};
+  activeProjects.forEach((project) => {
+    Object.keys(project.profile.tags).forEach((key) => {
+      if (!activeTags[key]) {
+        activeTags[key] = project.profile.tags[key];
+      }
+    });
+  });
 
   var allCategories: Record<string, string> = {};
-  Object.keys(fetchCats).forEach((cat) => {
-    allCategories[cat] = fetchCats[cat];
-  });
+  const priorities = ["near-intents", "near-ai", "defi"];
+  
+  Object.keys(fetchCats)
+    .filter((cat) => activeTags[cat])
+    .sort((a, b) => {
+      const aPriority = priorities.indexOf(a);
+      const bPriority = priorities.indexOf(b);
+      if (aPriority !== -1 && bPriority !== -1) return aPriority - bPriority;
+      if (aPriority !== -1) return -1;
+      if (bPriority !== -1) return 1;
+      return fetchCats[a].localeCompare(fetchCats[b]);
+    })
+    .forEach((cat) => {
+      allCategories[cat] = fetchCats[cat];
+    });
 
   if (!categoryData.cat_title) {
     return (
@@ -89,7 +119,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <main className="container relative mx-auto px-4 py-12" id="top">
-      <Image
+      {/* <Image
         className="absolute right-1/2 top-0 z-0 h-[8.8125rem] w-[13.8125rem] -translate-y-1/3 translate-x-1/2 object-cover md:right-0 md:h-[13.875rem] md:w-[21.6875rem] md:translate-x-0"
         src={SearchImage}
         alt={"Discover All Projects"}
@@ -99,13 +129,26 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         priority
         height={222}
         sizes="(min-width: 768px) 221px, 347px"
-      />
-      <div className="projects relative z-[1] flex flex-col gap-4">
-        <SectionHeading
-          title={categoryData.cat_title}
-          description={categoryData.cat_desc}
-        />
+      /> */}
+      <BreadcrumbSchema items={categoryCrumbs(cid, categoryData.cat_title)} />
+      <SpeakableSchema />
+      <FaqPageSchema items={categoryFaqs(cid, categoryData.cat_title, Object.values(categoryData.data || {}))} />
+      <h1 className="sr-only">{categoryData.cat_title} projects on NEAR Protocol</h1>
+      <div className="relative z-[1] flex flex-col gap-4">
+        <div className="mx-auto flex max-w-[800px] flex-col items-center text-center">
+          <SectionHeading
+            title={categoryData.cat_title}
+            description={categoryData.cat_desc}
+          />
+          <p className="answer-block mt-2 text-sm text-text-secondary" data-answer="true">
+            Browse {Object.keys(categoryData.data || {}).length} {categoryData.cat_title} projects on NEAR Protocol catalogued by NEAR Catalog.
+          </p>
+        </div>
+        
+        {/* Optional: Add Featured Project placeholder here if desired in the future */}
+        
         <CategoryProjectsList projects={categoryData.data} tags={allCategories} />
+        <FaqSection items={categoryFaqs(cid, categoryData.cat_title, Object.values(categoryData.data || {}))} />
       </div>
     </main>
   );

@@ -1,0 +1,54 @@
+name: SEO lint
+
+on:
+  pull_request:
+    paths:
+      - "app/**"
+      - "components/**"
+      - "lib/**"
+      - "scripts/seo/**"
+
+jobs:
+  seo-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Static lints (no server)
+        run: |
+          pnpm seo:lint:anchor
+          pnpm seo:lint:faq
+        env:
+          NEXT_PUBLIC_NEAR_CATALOG_API: https://api.nearcatalog.xyz
+          NEAR_CATALOG_API: https://api.nearcatalog.xyz
+
+      - name: Build
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_NEAR_CATALOG_API: https://api.nearcatalog.xyz
+          NEAR_CATALOG_API: https://api.nearcatalog.xyz
+
+      - name: Boot server + runtime lints
+        run: |
+          pnpm start &
+          for i in $(seq 1 30); do
+            if curl -fs http://localhost:3000/ > /dev/null; then break; fi
+            sleep 1
+          done
+          pnpm seo:lint:schema
+          pnpm seo:lint:md-parity
+        env:
+          NEXT_PUBLIC_NEAR_CATALOG_API: https://api.nearcatalog.xyz
+          NEAR_CATALOG_API: https://api.nearcatalog.xyz
+          SEO_LINT_BASE_URL: http://localhost:3000

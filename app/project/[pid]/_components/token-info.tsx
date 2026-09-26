@@ -37,15 +37,16 @@ function ChainInfo({
           target="_blank"
           title={chainTitle}
           rel="noopener noreferrer"
+          className="flex items-center gap-1 hover:text-accent-primary transition-colors inline-flex"
         >
-          {chainName} ↗
+          {chainName} <i className="bi bi-box-arrow-up-right text-[10px]"></i>
         </a>
       </small>
 
       <div
         ref={refObj}
         onClick={() => onClick(refObj)}
-        className="max-w-full break-all rounded-md bg-[#2b2d3a] p-1 text-xs"
+        className="max-w-full break-all cyber-mono text-accent-primary bg-bg-base border border-border-default p-2 text-xs hover:border-accent-primary cursor-pointer transition-colors"
       >
         {tokenAddress}
       </div>
@@ -70,9 +71,9 @@ export default function TokenInfo({ tokenInfo }: TokenInfoProps) {
 
   return (
     (near || aurora || ethereum) && (
-      <div className="flex flex-col gap-2 rounded-lg bg-[#1b1d2a] p-4">
-        <div className="flex flex-col gap-2">
-          <h3 className="text-xl font-bold">Token Contract</h3>
+      <div className="flex flex-col gap-4 rounded-sm border border-border-default bg-bg-surface p-4">
+        <div className="flex flex-col gap-3">
+          <h3 className="text-sm text-text-secondary uppercase tracking-widest font-bold">Token Contract</h3>
           {near && (
             <ChainInfo
               chainName="NEAR Chain (NEP-141)"

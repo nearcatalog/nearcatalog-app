@@ -265,6 +265,7 @@ export const metadata: Metadata = {
   title: "Terms of Use",
   description:
     "NEAR Catalog is a community platform that provides a directory of NEAR projects. The Near Catalog Terms of Use govern the use of the Near Catalog platform, which provides access to blockchain-related tools. Users must be 18+, use the platform ethically, and are responsible for their account security and interactions. The terms may be updated at any time.",
+  alternates: { canonical: "/policy/tos" },
 };
 
 export default function PrivacyPage() {

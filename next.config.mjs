@@ -12,7 +12,9 @@
 
 const nextConfig = {
   images: {
-    unoptimized: true,
+    unoptimized: true, //disable image optimization - since im using free version of Vercel so do this to prevent images not got loaded
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
     remotePatterns: [
       {
         protocol: "http",
@@ -51,6 +53,12 @@ const nextConfig = {
         hostname: "localhost",
       },
     ],
+  },
+  async rewrites() {
+    return [
+      { source: "/project/:pid.md", destination: "/md/project/:pid" },
+      { source: "/category/:cid.md", destination: "/md/category/:cid" },
+    ];
   },
   async headers() {
     return [

@@ -39,6 +39,7 @@ export const metadata: Metadata = {
   title: "Cookies Policy",
   description:
     "NEAR Catalog uses cookies to improve your experience on our website. This policy explains how we use cookies and how you can manage them.",
+  alternates: { canonical: "/policy/cookies" },
 };
 
 export default function CookiesPage() {

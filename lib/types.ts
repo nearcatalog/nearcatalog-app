@@ -23,6 +23,7 @@ export type ProjectProfile = {
   };
   tags: Record<string, string>;
   tokens: any;
+  phase?: string;
 };
 
 export type ProjectRecord = {

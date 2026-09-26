@@ -92,6 +92,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "NEAR Catalog is a platform that provides a directory of NEAR projects. This privacy policy outlines the types of information that NEAR Catalog collects, how it uses it, and how you can access and control it.",
+  alternates: { canonical: "/policy/privacy" },
 };
 
 export default function PrivacyPage() {

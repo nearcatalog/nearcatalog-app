@@ -2,33 +2,7 @@ import { ProjectRecord } from "@/lib/types";
 import Link from "next/link";
 import ShareDropdown from "./share-dropdown";
 import Image from "next/image";
-
-const WebsiteLink = ({
-  href,
-  ariaLabel,
-  children,
-  className,
-}: {
-  href: string;
-  children: React.ReactNode;
-  ariaLabel: string;
-  className?: string;
-}) => {
-  return (
-    <Link
-      href={href}
-      target="_blank"
-      rel="noreferrer nofollow"
-      aria-label={ariaLabel}
-      className={
-        "flex items-center justify-center gap-1 rounded-lg border border-[#80E9E5] px-2 py-1 text-sm font-bold text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50 " +
-        className
-      }
-    >
-      {children}
-    </Link>
-  );
-};
+import ImageWithFallback from "@/components/ImageWithFallback";
 
 interface LinkTreeProps {
   project: ProjectRecord;
@@ -41,87 +15,128 @@ export default function LinkTree({ project }: LinkTreeProps) {
   const pid = project.slug;
 
   return (
-    <div id="project-meta" className="flex min-w-64 flex-col gap-2">
-      <div
-        className={`relative flex flex-wrap items-center gap-1 lg:justify-end`}
-      >
-        {website && (
-          <WebsiteLink
-            href={website}
-            ariaLabel={project.profile.name}
-            className={(dapp ? "rounded-e-none" : "") + " w-28 border-2"}
-          >
-            <i className="bi bi-globe text-xl text-[#80E9E5]" /> Website
-          </WebsiteLink>
-        )}
-        {dapp && (
-          <WebsiteLink
+    <div id="project-meta" className="flex flex-col items-center lg:items-end gap-6 min-w-[280px]">
+      {/* Primary Action Button - Top */}
+      <div className="w-full lg:w-auto">
+        {dapp ? (
+          <Link
             href={dapp}
-            ariaLabel="Go to App"
-            className={"w-24 border-2 " + (website ? "rounded-s-none" : "")}
+            target="_blank"
+            rel="noreferrer nofollow"
+            className="group relative overflow-hidden flex w-full lg:w-auto items-center justify-center gap-3 border border-border-default bg-transparent px-8 py-3 text-lg font-black tracking-tighter transition-all duration-300 hover:border-accent-primary hover:text-white"
           >
-            <i className="bi bi-app-indicator text-xl text-[#80E9E5]" /> App
-          </WebsiteLink>
-        )}
-        <ShareDropdown project={project} />
-      </div>
-      <div className="mt-2 flex flex-col gap-2">
-        <div
-          className={`mb-3 flex flex-wrap items-center justify-start gap-3 lg:justify-end`}
-        >
-          {potlock && (
-            <Link href={potlock} aria-label="Potlock" rel="noreferrer nofollow">
-              <Image 
-              src="https://indexer.nearcatalog.org/wp-content/uploads/2025/05/potlock.png"
-              alt="Potlock"
-              width={16}
-              height={16}
-              className="w-5 h-5 transition-opacity duration-300 ease-in-out hover:opacity-50"
+            {/* Ambient Backdrop */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-10 saturate-150 transition-opacity duration-300 group-hover:opacity-30">
+              <ImageWithFallback
+                src={project.profile?.image?.url}
+                alt={project.profile?.name || "Logo"}
+                fill
+                className="object-cover blur-md scale-150"
               />
-            </Link>
-          )}
+            </div>
+            <span className="relative z-10 flex items-center gap-3">
+              Launch <span className="transition-transform group-hover:translate-x-1">→</span>
+            </span>
+          </Link>
+        ) : website && (
+          <Link
+            href={website}
+            target="_blank"
+            rel="noreferrer nofollow"
+            className="group relative overflow-hidden flex w-full lg:w-auto items-center justify-center gap-3 border border-border-default bg-transparent px-8 py-3 text-lg font-black tracking-tighter transition-all duration-300 hover:border-accent-primary hover:text-white"
+          >
+            {/* Ambient Backdrop */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-10 saturate-150 transition-opacity duration-300 group-hover:opacity-30">
+              <ImageWithFallback
+                src={project.profile?.image?.url}
+                alt={project.profile?.name || "Logo"}
+                fill
+                className="object-cover blur-md scale-150"
+              />
+            </div>
+            <span className="relative z-10 flex items-center gap-3">
+              Visit <span className="transition-transform group-hover:translate-x-1">→</span>
+            </span>
+          </Link>
+        )}
+      </div>
 
+      {/* Social & Secondary Links - Below */}
+      <div className="flex flex-col items-center lg:items-end gap-3">
+        <div className="flex flex-wrap items-center justify-center lg:justify-end gap-2 px-1">
+          {website && (
+            <Link 
+              href={website} 
+              target="_blank" 
+              rel="noreferrer nofollow"
+              className="flex items-center justify-center size-8 rounded-full border border-border-default bg-bg-surface text-gray-400 hover:border-accent-primary hover:text-accent-primary transition-all duration-300"
+              title="Website"
+            >
+              <i className="bi bi-globe text-sm" />
+            </Link>
+          )}
           {twitter && (
-            <Link href={twitter} aria-label="Twitter" rel="noreferrer nofollow">
-              <i className="bi bi-twitter-x text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50" />
-            </Link>
-          )}
-          {github && (
-            <Link href={github} aria-label={`${project.profile.name} Github`} rel="noreferrer nofollow">
-              <i className="bi bi-github text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50" />
-            </Link>
-          )}
-          {medium && (
-            <Link href={medium} aria-label="Medium" rel="noreferrer nofollow">
-              <i className="bi bi-medium text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50" />
-            </Link>
-          )}
-          {discord && (
-            <Link href={discord} aria-label="Discord">
-              <i className="bi bi-discord text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50" />
+            <Link 
+              href={twitter} 
+              target="_blank" 
+              rel="noreferrer nofollow"
+              className="flex items-center justify-center size-8 rounded-full border border-border-default bg-bg-surface text-gray-400 hover:border-accent-primary hover:text-accent-primary transition-all duration-300"
+              title="X (Twitter)"
+            >
+              <i className="bi bi-twitter-x text-sm" />
             </Link>
           )}
           {telegram && (
-            <Link href={telegram} aria-label="Telegram" rel="noreferrer nofollow">
-              <i className="bi bi-telegram text-[#80E9E5] transition-opacity duration-300 ease-in-out hover:opacity-50" />
-            </Link>
-          )}
-          {lnc?.score && (
-            <Link
-              href={`https://learnnear.club/near-ecosystem/${lnc.slug}/`}
-              target="_blank"
-              aria-label="LNC"
-              className="flex gap-1 rounded bg-orange-400 px-1 text-sm font-extrabold text-black"
+            <Link 
+              href={telegram} 
+              target="_blank" 
               rel="noreferrer nofollow"
+              className="flex items-center justify-center size-8 rounded-full border border-border-default bg-bg-surface text-gray-400 hover:border-accent-primary hover:text-accent-primary transition-all duration-300"
+              title="Telegram"
             >
-              <ul className="flex items-baseline">
-                <li className="text-[10px]">L</li>
-                <li className="text-xs">N</li>
-                <li>C</li>
-              </ul>
-              {lnc.score}
+              <i className="bi bi-telegram text-sm" />
             </Link>
           )}
+          {github && (
+            <Link 
+              href={github} 
+              target="_blank" 
+              rel="noreferrer nofollow" 
+              className="flex items-center justify-center size-8 rounded-full border border-border-default bg-bg-surface text-gray-400 hover:border-accent-primary hover:text-accent-primary transition-all duration-300"
+              title="GitHub"
+            >
+              <i className="bi bi-github text-sm" />
+            </Link>
+          )}
+          {discord && (
+            <Link 
+              href={discord} 
+              target="_blank" 
+              rel="noreferrer nofollow" 
+              className="flex items-center justify-center size-8 rounded-full border border-border-default bg-bg-surface text-gray-400 hover:border-accent-primary hover:text-accent-primary transition-all duration-300"
+              title="Discord"
+            >
+              <i className="bi bi-discord text-sm" />
+            </Link>
+          )}
+           {potlock && (
+            <Link 
+              href={potlock} 
+              target="_blank" 
+              rel="noreferrer nofollow" 
+              className="flex items-center justify-center size-8 rounded-full border border-border-default bg-bg-surface text-gray-400 hover:border-accent-primary hover:text-accent-primary transition-all duration-300 p-2"
+              title="Potlock"
+            >
+               <Image 
+                src="https://indexer.nearcatalog.xyz/wp-content/uploads/2025/05/potlock.png"
+                alt="Potlock"
+                width={14}
+                height={14}
+                className="grayscale brightness-200"
+                />
+            </Link>
+          )}
+          <ShareDropdown project={project} />
         </div>
       </div>
     </div>

@@ -1,133 +1,104 @@
 "use client";
 
-// import ProjectCard from "@/components/ui/project-card";
+import { useRef, useState, useMemo, useEffect } from "react";
 import { useDraggable } from "react-use-draggable-scroll";
-import { useRef, useState, useEffect } from "react";
 import { ProjectId, ProjectRecord } from "@/lib/types";
-import ImageWithFallback from "@/components/ImageWithFallback";
+import { useSearchStore } from "@/store/search-store";
+import ProjectCard from "@/components/ui/project-card";
 
 interface ScrollableProjectsProps {
   projects: Record<ProjectId, ProjectRecord>;
 }
 
-
-
-function NewProjectCard({ project }: { project: ProjectRecord }) {
-  const { profile } = project;
-
-  const title = profile.name;
-  const description = profile.tagline;
-
-  return (
-    <a
-      style={{ userSelect: "none" }}
-      href={`/project/${project.slug}`}
-      className={`new-project-card grow-1 flex min-w-[12rem] gap-shrink-0 cursor-pointer flex-col items-center 
-      justify-center gap-3 overflow-hidden rounded-lg px-1 py-2 transition-all duration-100
-       ease-in-out md:py-3`}
-    >
-      <div className="flex w-full items-center gap-2 overflow-hidden md:items-center">
-        <ImageWithFallback
-          className="size-[3rem] rounded-full bg-gray-700 md:size-[3.5rem]"
-          src={profile.image.url}
-          alt={profile.name}
-          width={80}
-          height={80}
-        />
-        <div className="flex items-center gap-1">
-          <h3 className="m-0 overflow-ellipsis break-words p-0 text-left text-[1rem] font-bold leading-tight text-white md:break-words flex items-center">
-            {title}
-          </h3>
-        </div>
-      </div>
-    </a>
-  );
-}
-
-// scrollable for new projects 
-
 export default function NewScrollableProjects({
   projects,
 }: ScrollableProjectsProps) {
-  const projectKeys = Object.keys(projects);
-  const containerRef =
-    useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
+  const { showInactive } = useSearchStore();
+  
+  const containerRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
   const { events } = useDraggable(containerRef, {
-    applyRubberBandEffect: true, // activate rubber band effect
+    applyRubberBandEffect: true,
   });
-  const [showLeftShadow, setShowLeftShadow] = useState(false);
-  const [showRightShadow, setShowRightShadow] = useState(false);
+
   const [isHovered, setIsHovered] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
 
+  const filteredProjects = useMemo(() => {
+    if (showInactive) return projects;
+    return Object.fromEntries(
+      Object.entries(projects).filter(([_, project]) => project.profile?.phase !== "inactive")
+    );
+  }, [projects, showInactive]);
+
+  const projectKeys = Object.keys(filteredProjects);
+
+  // JS-based continuous marquee logic
   useEffect(() => {
-    const handleScroll = () => {
+    if (projectKeys.length === 0 || isHovered || isTouched) return;
+
+    const interval = setInterval(() => {
       const container = containerRef.current;
       if (container) {
-        const { scrollLeft, scrollWidth, clientWidth } = container;
-        setShowLeftShadow(scrollLeft > 0);
-        setShowRightShadow(scrollLeft < scrollWidth - clientWidth);
-      }
-    };
-
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-      handleScroll(); // Initialize shadows on mount
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    const scrollElement = containerRef.current;
-    let scrollInterval: NodeJS.Timeout;
-
-    const startScrolling = () => {
-      scrollInterval = setInterval(() => {
-        if (scrollElement) {
-          scrollElement.scrollLeft += 1;
-          if (
-            scrollElement.scrollLeft + scrollElement.clientWidth >=
-            scrollElement.scrollWidth
-          ) {
-            scrollElement.scrollLeft = 0; // Reset scroll to top when it reaches the bottom
-          }
+        container.scrollLeft += 1;
+        // Reset when we approach the end
+        if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 5) {
+          container.scrollLeft = 0;
         }
-      }, 15); // Adjust the speed of scrolling here
-    };
+      }
+    }, 20); // smooth, constant pixel-push
 
-    if (!isHovered && !isTouched) {
-      startScrolling();
-    }
+    return () => clearInterval(interval);
+  }, [isHovered, isTouched, projectKeys.length]);
 
-    return () => clearInterval(scrollInterval);
-  }, [isHovered, isTouched]);
+  if (projectKeys.length === 0) {
+    return null;
+  }
+
+  // Cap at 10 items — duplicated for seamless loop = max 40 nodes
+  // More than this causes GPU overload from glow-card backdrop-filter on each card
+  const cappedKeys = projectKeys.slice(0, 10);
+  const allKeys = [...cappedKeys, ...cappedKeys];
 
   return (
-    <>
+    <div id="new-scrollable-projects" className="relative max-w-full z-20 mb-6 md:mb-10 overflow-hidden">
+      <h4 className="text-[11px] font-bold text-accent-primary mb-4 md:mb-4 uppercase tracking-[0.4em] font-mono flex items-center gap-2">
+        <span className="w-1.5 h-1.5 bg-accent-primary rounded-full"></span> New Projects
+      </h4>
 
-      <div id="new-scrollable-projects" className="relative max-w-full z-20 bg-[#11141B]">
+      {/* Outer mask for fade edges */}
+      <div
+        className="relative"
+        style={{
+          maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onTouchStart={() => setIsTouched(true)}
+        onTouchEnd={() => setIsTouched(false)}
+      >
+        {/* Scrollable inner wrapper controlled by useDraggable */}
         <div
           ref={containerRef}
           {...events}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onTouchStart={() => setIsTouched(true)}
-          onTouchEnd={() => setIsTouched(false)}
-          className="no-scrollbar mt-4 md:mt-10 flex gap-4 overflow-x-scroll scrollbar-hide px-4"
+          className="no-scrollbar flex gap-2.5 pb-1 overflow-x-auto pt-2"
         >
-          {projectKeys.map((pid: any) => (
-            <NewProjectCard project={projects[pid]} key={pid} />
+          {allKeys.map((pid: any, idx: number) => (
+            <div
+              key={`${pid}-${idx}`}
+              className="w-[230px] md:w-[250px] lg:w-[270px] flex-shrink-0 flex items-stretch"
+              aria-hidden={idx >= cappedKeys.length}
+            >
+              <ProjectCard
+                project={filteredProjects[pid]}
+                variant="compact"
+                showTags={false}
+                maxWidth={true}
+              />
+            </div>
           ))}
         </div>
       </div>
-
-
-    </>
+    </div>
   );
 }
